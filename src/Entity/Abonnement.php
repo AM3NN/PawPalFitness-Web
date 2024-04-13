@@ -2,62 +2,101 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Abonnement
- *
- * @ORM\Table(name="abonnement", indexes={@ORM\Index(name="id_salle", columns={"id_salle"})})
- * @ORM\Entity
- */
+use App\Repository\AbonnementRepository;
+use DateTime;
+
+#[ORM\Entity(repositoryClass:AbonnementRepository::class)]
 class Abonnement
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id_abonnement", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idAbonnement;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idAbonnement=null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="duree_abonnement", type="string", length=100, nullable=true)
-     */
-    private $dureeAbonnement;
+    #[ORM\Column(length: 255)]
+    private ?string $dureeAbonnement=null;
 
-    /**
-     * @var float|null
-     *
-     * @ORM\Column(name="prix_abonnement", type="float", precision=10, scale=0, nullable=true)
-     */
-    private $prixAbonnement;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="date_deb_abonnement", type="date", nullable=true)
-     */
-    private $dateDebAbonnement;
+    #[ORM\Column]
+    private ?float $prixAbonnement=null;
 
-    /**
-     * @var \DateTime|null
-     *
-     * @ORM\Column(name="date_fin_abonnement", type="date", nullable=true)
-     */
-    private $dateFinAbonnement;
+    #[ORM\Column]
+    private ?DateTime $dateDebAbonnement;
 
-    /**
-     * @var \SalleDeSport
-     *
-     * @ORM\ManyToOne(targetEntity="SalleDeSport")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id_salle", referencedColumnName="id_salle")
-     * })
-     */
-    private $idSalle;
+    #[ORM\Column]
+    private ?DateTime $dateFinAbonnement;
+
+    #[ORM\ManyToOne(inversedBy: "abonnements")]
+    private ?SalleDeSport $idSalle;
+
+    public function getIdAbonnement(): ?int
+    {
+        return $this->idAbonnement;
+    }
+
+    public function getDureeAbonnement(): ?string
+    {
+        return $this->dureeAbonnement;
+    }
+
+    public function setDureeAbonnement(string $dureeAbonnement): static
+    {
+        $this->dureeAbonnement = $dureeAbonnement;
+
+        return $this;
+    }
+
+    public function getPrixAbonnement(): ?float
+    {
+        return $this->prixAbonnement;
+    }
+
+    public function setPrixAbonnement(float $prixAbonnement): static
+    {
+        $this->prixAbonnement = $prixAbonnement;
+
+        return $this;
+    }
+
+    public function getDateDebAbonnement(): ?\DateTimeInterface
+    {
+        return $this->dateDebAbonnement;
+    }
+
+    public function setDateDebAbonnement(\DateTimeInterface $dateDebAbonnement): static
+    {
+        $this->dateDebAbonnement = $dateDebAbonnement;
+
+        return $this;
+    }
+
+    public function getDateFinAbonnement(): ?\DateTimeInterface
+    {
+        return $this->dateFinAbonnement;
+    }
+
+    public function setDateFinAbonnement(\DateTimeInterface $dateFinAbonnement): static
+    {
+        $this->dateFinAbonnement = $dateFinAbonnement;
+
+        return $this;
+    }
+
+    public function getIdSalle(): ?SalleDeSport
+    {
+        return $this->idSalle;
+    }
+
+    public function setIdSalle(?SalleDeSport $idSalle): static
+    {
+        $this->idSalle = $idSalle;
+
+        return $this;
+    }
+
 
 
 }
