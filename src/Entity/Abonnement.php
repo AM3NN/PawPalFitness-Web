@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,6 +59,71 @@ class Abonnement
      * })
      */
     private $idSalle;
+
+    public function getIdAbonnement(): ?int
+    {
+        return $this->idAbonnement;
+    }
+
+    public function getDureeAbonnement(): ?string
+    {
+        return $this->dureeAbonnement;
+    }
+
+    public function setDureeAbonnement(?string $dureeAbonnement): static
+    {
+        $this->dureeAbonnement = $dureeAbonnement;
+
+        return $this;
+    }
+
+    public function getPrixAbonnement(): ?float
+    {
+        return $this->prixAbonnement;
+    }
+
+    public function setPrixAbonnement(?float $prixAbonnement): static
+    {
+        $this->prixAbonnement = $prixAbonnement;
+
+        return $this;
+    }
+
+    public function getDateDebAbonnement(): ?\DateTimeInterface
+    {
+        return $this->dateDebAbonnement;
+    }
+
+    public function setDateDebAbonnement(?\DateTimeInterface $dateDebAbonnement): static
+    {
+        $this->dateDebAbonnement = $dateDebAbonnement;
+
+        return $this;
+    }
+
+    public function getDateFinAbonnement(): ?\DateTimeInterface
+    {
+        return $this->dateFinAbonnement;
+    }
+
+    public function setDateFinAbonnement(?\DateTimeInterface $dateFinAbonnement): static
+    {
+        $this->dateFinAbonnement = $dateFinAbonnement;
+
+        return $this;
+    }
+
+    public function getIdSalle(): ?SalleDeSport
+    {
+        return $this->idSalle;
+    }
+
+    public function setIdSalle(?SalleDeSport $idSalle): static
+    {
+        $this->idSalle = $idSalle;
+
+        return $this;
+    }
 
 
 }

@@ -34,5 +34,29 @@ class CommandeProduit
      */
     private $idproduit;
 
+    public function getIdcommande(): ?Commande
+    {
+        return $this->idcommande;
+    }
+
+    public function setIdcommande(?Commande $idcommande): static
+    {
+        $this->idcommande = $idcommande;
+
+        return $this;
+    }
+
+    public function getIdproduit(): ?Produit
+    {
+        return $this->idproduit;
+    }
+
+    public function setIdproduit(?Produit $idproduit): static
+    {
+        $this->idproduit = $idproduit;
+
+        return $this;
+    }
+
 
 }
