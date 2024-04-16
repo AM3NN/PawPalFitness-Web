@@ -13,4 +13,16 @@ class PagevitrineController extends AbstractController
     {
         return $this->render('pagevitrine/PageVitrine.html.twig');
     }
+
+    #[Route('/about', name: 'app_aboutus')]
+    public function aboutus(): Response
+    {
+        return $this->render('pagevitrine/aboutus.html.twig');
+    }
+
+    #[Route('/team', name: 'app_team')]
+    public function team(): Response
+    {
+        return $this->render('pagevitrine/ourteam.html.twig');
+    }
 }

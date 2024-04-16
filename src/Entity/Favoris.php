@@ -3,37 +3,51 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FavorisRepository;
 
-/**
- * Favoris
- *
- * @ORM\Table(name="favoris", indexes={@ORM\Index(name="FK_animal", columns={"IDA"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass:FavorisRepository::class)]
 class Favoris
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="IDf", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $idf;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $idf=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="noma", type="string", length=100, nullable=false)
-     */
-    private $noma;
+    #[ORM\Column(length: 100)]
+    private ?string $noma=null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="IDA", type="integer", nullable=false)
-     */
-    private $ida;
+    #[ORM\ManyToOne(targetEntity: Animal::class)]
+    #[ORM\JoinColumn(name: "IDA", referencedColumnName: "ida")]
+    private Animal $ida;
+
+    public function getIdf(): ?string
+    {
+        return $this->idf;
+    }
+
+    public function getNoma(): ?string
+    {
+        return $this->noma;
+    }
+
+    public function setNoma(string $noma): static
+    {
+        $this->noma = $noma;
+
+        return $this;
+    }
+
+    public function getIda(): ?Animal
+    {
+        return $this->ida;
+    }
+
+    public function setIda(?Animal $ida): static
+    {
+        $this->ida = $ida;
+
+        return $this;
+    }
 
 
 }

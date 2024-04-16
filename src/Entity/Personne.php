@@ -3,75 +3,126 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PersonneRepository;
 
-/**
- * Personne
- *
- * @ORM\Table(name="personne", indexes={@ORM\Index(name="fk_role", columns={"role_id"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass:PersonneRepository::class)]
 class Personne
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nom", type="string", length=200, nullable=false)
-     */
-    private $nom;
+    #[ORM\Column(length: 200)]
+    private ?string $nom=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=200, nullable=false)
-     */
-    private $prenom;
+    #[ORM\Column(length: 200)]
+    private ?string $prenom=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="region", type="string", length=200, nullable=false)
-     */
-    private $region;
+    #[ORM\Column(length: 200)]
+    private ?string $region=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=200, nullable=false)
-     */
-    private $email;
+    #[ORM\Column(length: 200)]
+    private ?string $email=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=false)
-     */
-    private $password;
+    #[ORM\Column(length: 255)]
+    private ?string $password=null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="age", type="integer", nullable=false)
-     */
-    private $age;
+    #[ORM\Column]
+    private ?int $age=null;
 
-    /**
-     * @var \Role
-     *
-     * @ORM\ManyToOne(targetEntity="Role")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="role_id", referencedColumnName="role_id")
-     * })
-     */
-    private $role;
+    #[ORM\ManyToOne(targetEntity: Role::class)]
+    #[ORM\JoinColumn(name: "role_id", referencedColumnName: "role_id")]
+    private Role $role;
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): static
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): static
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(string $region): static
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): static
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    public function getAge(): ?string
+    {
+        return $this->age;
+    }
+
+    public function setAge(string $age): static
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?Role $role): static
+    {
+        $this->role = $role;
+
+        return $this;
+    }
 
 
 }

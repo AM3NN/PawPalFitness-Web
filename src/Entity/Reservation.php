@@ -3,79 +3,140 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ReservationRepository;
 
-/**
- * Reservation
- *
- * @ORM\Table(name="reservation")
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass:ReservationRepository::class)]
 class Reservation
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="reservationID", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $reservationid;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $reservationid=null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="places", type="integer", nullable=false)
-     */
-    private $places;
+    #[ORM\Column]
+    private ?int $places=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="category", type="string", length=20, nullable=false)
-     */
-    private $category;
+    #[ORM\Column(length: 20)]
+    private ?string $category=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="date", type="string", length=20, nullable=false)
-     */
-    private $date;
+    #[ORM\Column(length: 20)]
+    private ?string $date=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="startTime", type="string", length=20, nullable=false)
-     */
-    private $starttime;
+    #[ORM\Column(length: 20)]
+    private ?string $starttime=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="endTime", type="string", length=20, nullable=false)
-     */
-    private $endtime;
+    #[ORM\Column(length: 20)]
+    private ?string $endtime=null;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=20, nullable=false)
-     */
-    private $status;
+    #[ORM\Column(length: 20)]
+    private ?string $status=null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="duration", type="integer", nullable=false)
-     */
-    private $duration;
+    #[ORM\Column]
+    private ?int $duration=null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="pricing", type="integer", nullable=false)
-     */
-    private $pricing;
+    #[ORM\Column]
+    private ?int $pricing=null;
+
+    public function getReservationid(): ?string
+    {
+        return $this->reservationid;
+    }
+
+    public function getPlaces(): ?string
+    {
+        return $this->places;
+    }
+
+    public function setPlaces(string $places): static
+    {
+        $this->places = $places;
+
+        return $this;
+    }
+
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getDate(): ?string
+    {
+        return $this->date;
+    }
+
+    public function setDate(string $date): static
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getStarttime(): ?string
+    {
+        return $this->starttime;
+    }
+
+    public function setStarttime(string $starttime): static
+    {
+        $this->starttime = $starttime;
+
+        return $this;
+    }
+
+    public function getEndtime(): ?string
+    {
+        return $this->endtime;
+    }
+
+    public function setEndtime(string $endtime): static
+    {
+        $this->endtime = $endtime;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(string $status): static
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(string $duration): static
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getPricing(): ?string
+    {
+        return $this->pricing;
+    }
+
+    public function setPricing(string $pricing): static
+    {
+        $this->pricing = $pricing;
+
+        return $this;
+    }
 
 
 }

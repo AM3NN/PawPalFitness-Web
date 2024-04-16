@@ -1,0 +1,173 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<br><br><br><br>
+    <div class="container emp-profile">
+        {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-img">
+                    {% if animal.categorie == 'Chien' %}
+                        <img src="{{asset('img/dog.jpg')}}" alt=""/>
+                    {% else %}
+                    <img src="{{asset('img/cat.jpg')}}" alt=""/>
+                    {% endif %}
+                    </div>
+                </div>
+
+
+                <div class="col-md-6">
+                    <div class="profile-head">
+                        <h5>{{ animal.nom }}</h5>
+                        <h6>{{ animal.type }}</h6>
+
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                            </li> 
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div class="col-md-2">
+                    {{ form_widget(form.Edit_Profile, { 'attr': {'class': 'profile-edit-btn'} }) }}
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="profile-work">
+                        <p>Recommended Treats</p>
+                        <a href="">Treats1</a><br/>
+                        <a href="">Treats2</a><br/>
+                        <p>Does</p>
+                        <a href="">DO</a><br/>
+                        <a href="">DO</a><br/>
+                        <p>Don'ts</p>
+                        <a href="">Don't</a><br/>
+                        <a href="">Don't</a><br/>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Name</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p>{{ animal.nom }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Age in years</label>
+                                    </div>
+                                    <div class="col-md-6"> 
+                                    <p>{{ form_widget(form.age, { 'attr': {'class': 'form-control', 'placeholder': animal.age ~ ' Ans', 'style': 'background-color: #CADAE5;'} }) }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                         <label>Weight in KG</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <p>{{ form_widget(form.poids, { 'attr': {'class': 'form-control', 'placeholder': animal.poids ~ ' KG', 'style': 'background-color: #CADAE5;'} }) }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Details</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <p>{{ form_widget(form.details, { 'attr': {'class': 'form-control', 'placeholder': animal.details, 'style': 'background-color: #CADAE5;'} }) }}</p>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                 </div>
+
+            </div>
+        {{form_end(form)}}          
+    </div>
+
+
+
+<style>
+body{
+    background: -webkit-linear-gradient(left, #e16521, #e4381C);
+}
+.emp-profile{
+    padding: 5%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+.profile-img{
+    text-align: center;
+}
+.profile-img img{
+    width: 70%;
+    height: 100%;
+}
+
+.profile-head h5{
+    color: #333;
+}
+.profile-head h6{
+    color: #e4381C;
+}
+.profile-edit-btn{
+    border: none;
+    border-radius: 1.5rem;
+    width: 70%;
+    padding: 2%;
+    font-weight: 600;
+    color: #6c757d;
+    cursor: pointer;
+}
+.profile-edit-btn:hover{
+    background-color: #b8b8c8;
+}
+
+.profile-head .nav-tabs{
+    margin-bottom:1%;
+}
+.profile-head .nav-tabs .nav-link.active{
+    border: none;
+    border-bottom:2px solid #0062cc;
+}
+.profile-work{
+    padding: 13%;
+    margin-top: -15%;
+}
+.profile-work p{
+    font-size: 12px;
+    color: #818182;
+    font-weight: 600;
+    margin-top: 10%;
+    margin-bottom:2%;
+}
+.profile-work a{
+    text-decoration: none;
+    color: #495057;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.profile-tab label{
+    font-weight: 600;
+}
+.profile-tab p{
+    font-weight: 600;
+    color: #0062cc;
+}
+</style>
+{% endblock %}

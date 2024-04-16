@@ -3,51 +3,80 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CartRepository;
 
-/**
- * Cart
- *
- * @ORM\Table(name="cart", indexes={@ORM\Index(name="reservationID", columns={"reservationID"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass:cartRepository::class)]
 class Cart
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="cart_id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $cartId;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $cartId=null;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="reservationID", type="integer", nullable=true)
-     */
-    private $reservationid;
+    #[ORM\Column]
+    private ?int $reservationid;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="places", type="integer", nullable=true)
-     */
-    private $places;
+    #[ORM\Column]
+    private ?int $places;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="quantity", type="integer", nullable=true)
-     */
-    private $quantity;
+    #[ORM\Column]
+    private ?int $quantity;
 
-    /**
-     * @var \DateTime
-     *
-     * @ORM\Column(name="timestamp", type="datetime", nullable=false, options={"default"="CURRENT_TIMESTAMP"})
-     */
-    private $timestamp = 'CURRENT_TIMESTAMP';
+    #[ORM\Column(options: ["default" => "CURRENT_TIMESTAMP"])]
+    private ?DateTime $timestamp;
+
+    public function getCartId(): ?int
+    {
+        return $this->cartId;
+    }
+
+    public function getReservationid(): ?int
+    {
+        return $this->reservationid;
+    }
+
+    public function setReservationid(int $reservationid): static
+    {
+        $this->reservationid = $reservationid;
+
+        return $this;
+    }
+
+    public function getPlaces(): ?int
+    {
+        return $this->places;
+    }
+
+    public function setPlaces(int $places): static
+    {
+        $this->places = $places;
+
+        return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): static
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getTimestamp(): ?string
+    {
+        return $this->timestamp;
+    }
+
+    public function setTimestamp(string $timestamp): static
+    {
+        $this->timestamp = $timestamp;
+
+        return $this;
+    }
 
 
 }
