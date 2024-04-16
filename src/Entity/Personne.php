@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+<<<<<<< Updated upstream
 
 /**
  * Personne
@@ -11,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  */
 class Personne
+=======
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Repository\PersonneRepository;
+
+#[ORM\Entity(repositoryClass: PersonneRepository::class)]
+class Personne 
+>>>>>>> Stashed changes
 {
     /**
      * @var int
@@ -49,6 +57,7 @@ class Personne
      */
     private $email;
 
+<<<<<<< Updated upstream
     /**
      * @var string
      *
@@ -62,6 +71,20 @@ class Personne
      * @ORM\Column(name="age", type="integer", nullable=false)
      */
     private $age;
+=======
+    #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Mot de passe est obligatoire")]
+    #[Assert\Length(
+        min: 8,
+        minMessage: "Le mot de passe doit contenir au moins {{ limit }} caractères."
+    )]
+    private ?string $password = null;
+    #[ORM\Column(type: "integer", nullable: true)]
+    #[Assert\NotBlank(message: "Âge est obligatoire")]
+    #[Assert\Type(type: "integer", message: "Âge doit être un nombre entier")]
+    #[Assert\Range(min: 1, minMessage: "Âge doit être supérieur à 0")]
+    private ?int $age = null;
+>>>>>>> Stashed changes
 
     /**
      * @var \Role
@@ -73,5 +96,90 @@ class Personne
      */
     private $role;
 
+<<<<<<< Updated upstream
 
+=======
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+    public function getRole(): ?Role
+    {
+        return $this->role;
+    }
+
+    public function setRole(?Role $role): self
+    {
+        $this->role = $role;
+        return $this;
+    }
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+        return $this;
+    }
+
+    public function getRegion(): ?string
+    {
+        return $this->region;
+    }
+
+    public function setRegion(string $region): self
+    {
+        $this->region = $region;
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = hash('sha256', $password);
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(int $age): self
+    {
+        $this->age = $age;
+        return $this;
+    }
+
+
+  
+>>>>>>> Stashed changes
 }
