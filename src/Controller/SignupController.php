@@ -22,37 +22,43 @@ class SignupController extends AbstractController
 
     #[Route('/signup', name: 'app_signup')]
     public function signup(Request $request): Response
-{
-    $personne = new Personne();
-    $form = $this->createForm(PersonneType::class, $personne);
-    $form->handleRequest($request);
-
-    $errorMessage = ''; 
-
-    if ($form->isSubmitted() && $form->isValid()) {
-        $emailExists = $this->checkEmailExists($personne->getEmail());
-        if ($emailExists) {
-            $errorMessage = 'Email already exists';
-        } else {
-            $defaultRoleId = 2;
-            $role = $this->entityManager->getRepository(Role::class)->find($defaultRoleId);
-            if (!$role) {
-                throw $this->createNotFoundException('Default role not found.');
+    {
+        $personne = new Personne();
+        $form = $this->createForm(PersonneType::class, $personne);
+        $form->handleRequest($request);
+    
+        $errorMessage = ''; 
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $emailExists = $this->checkEmailExists($personne->getEmail());
+            if ($emailExists) {
+                $errorMessage = 'Email already exists';
+            } else {
+                try {
+                    $defaultRoleId = 2;
+                    $role = $this->entityManager->getRepository(Role::class)->find($defaultRoleId);
+                    if (!$role) {
+                        throw $this->createNotFoundException('Default role not found.');
+                    }
+    
+                    $personne->setRole($role);
+                    $this->entityManager->persist($personne);
+                    $this->entityManager->flush();
+    
+                    return $this->redirectToRoute('app_success');
+                } catch (\Exception $e) {
+                    // Handle the error appropriately, e.g., log it or display a generic error message
+                    $errorMessage = 'An error occurred while processing your request.';
+                }
             }
-
-            $personne->setRole($role);
-            $this->entityManager->persist($personne);
-            $this->entityManager->flush();
-
-            return $this->redirectToRoute('app_success');
         }
+    
+        return $this->render('signup/signup.html.twig', [
+            'form' => $form->createView(),
+            'errorMessage' => $errorMessage,
+        ]);
     }
-
-    return $this->render('signup/signup.html.twig', [
-        'form' => $form->createView(),
-        'errorMessage' => $errorMessage,
-    ]);
-}
+    
 
 
     #[Route('/login', name: 'app_success')]

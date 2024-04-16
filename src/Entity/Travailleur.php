@@ -6,27 +6,27 @@ use Doctrine\ORM\Mapping as ORM;
 
 use App\Repository\TravailleurRepository;
 
-#[ORM\Entity(repositoryClass:TravailleurRepository::class)]
+#[ORM\Entity(repositoryClass: TravailleurRepository::class)]
 class Travailleur
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id=null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $diplome=null;
+    private ?string $diplome = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $experience=null;
+    private ?string $experience = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $langue=null;
+    private ?string $langue = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $categorie=null;
+    private ?string $categorie = null;
 
-    #[ORM\ManyToOne(inversedBy:  "travailleurs")]
+    #[ORM\ManyToOne(inversedBy: "travailleurs")]
     private ?Personne $personne = null;
 
     public function getId(): ?int
@@ -93,6 +93,4 @@ class Travailleur
 
         return $this;
     }
-
-
 }

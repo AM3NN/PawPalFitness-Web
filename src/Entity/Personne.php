@@ -3,11 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PersonneRepository;
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
-class Personne implements UserInterface
+class Personne 
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -44,10 +43,10 @@ class Personne implements UserInterface
     #[Assert\Type(type: "integer", message: "Âge doit être un nombre entier")]
     #[Assert\Range(min: 1, minMessage: "Âge doit être supérieur à 0")]
     private ?int $age = null;
-
+    
     #[ORM\ManyToOne(targetEntity: Role::class)]
     #[ORM\JoinColumn(name: "role_id", referencedColumnName: "role_id")]
-    private ?Role $role = null;
+    private ?Role $role = null; // Add the ManyToOne relationship with Role
 
     public function getId(): ?int
     {
@@ -131,26 +130,6 @@ class Personne implements UserInterface
         return $this;
     }
 
-    public function getRoles(): array
-    {
-        // Define roles as needed, for now, just return an empty array
-        return [];
-    }
 
-    public function getSalt()
-    {
-        // Return null if using bcrypt or similar algorithm
-        return null;
-    }
-
-    public function eraseCredentials()
-    {
-        // If you store any sensitive data on the user, clear it here
-    }
-
-    public function getUserIdentifier(): string
-    {
-        // Return the email as the user identifier
-        return (string) $this->email;
-    }
+ 
 }
