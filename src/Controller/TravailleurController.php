@@ -24,6 +24,7 @@ class TravailleurController extends AbstractController
 
     #[Route('/travailleur', name: 'app_travailleur')]
     public function signupTravailleur(Request $request): Response
+<<<<<<< Updated upstream
 {
     $travailleur = new Travailleur();
     $form = $this->createForm(TravailleurType::class, $travailleur);
@@ -66,10 +67,68 @@ class TravailleurController extends AbstractController
     ]);
 }
 
+=======
+    {
+        $travailleur = new Travailleur();
+        $form = $this->createForm(TravailleurType::class, $travailleur);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // Get the form data
+            $formData = $form->getData();
+            
+            // Get the Personne object from the form data
+            $personneData = $formData->getPersonne();
+            
+            // Check if the Personne object is null
+            if (!$personneData) {
+                // Create a new Personne object and set it on Travailleur
+                $personneData = new Personne();
+                $formData->setPersonne($personneData);
+            }
+            
+            // Set the default role for Travailleur
+            $defaultRoleId = 3;
+            $role = $this->entityManager->getRepository(Role::class)->find($defaultRoleId);
+        
+            if (!$role) {
+                throw $this->createNotFoundException('Default role not found.');
+            }
+        
+            // Set the role for the Personne associated with Travailleur
+            $personneData->setRole($role);
+            
+            // Set the Personne object with form data
+            $personneData->setNom($form->get('personne')->get('nom')->getData());
+            $personneData->setPrenom($form->get('personne')->get('prenom')->getData());
+            $personneData->setRegion($form->get('personne')->get('region')->getData());
+            $personneData->setEmail($form->get('personne')->get('email')->getData());
+            $personneData->setPassword($form->get('personne')->get('password')->getData());
+            $personneData->setAge($form->get('personne')->get('age')->getData());
+        
+            // Persist the Personne entity
+            $this->entityManager->persist($personneData);
+        
+            $this->entityManager->persist($formData);
+            $this->entityManager->flush();
+        
+            return $this->redirectToRoute('app_success');
+        }
+        
+
+        return $this->render('travailleur/travailleur.html.twig', [
+            'form' => $form->createView(),
+        ]);
+    }
+>>>>>>> Stashed changes
 
     #[Route('/login', name: 'app_success')]
     public function success(): Response
     {
         return $this->render('login/login.html.twig');
     }
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

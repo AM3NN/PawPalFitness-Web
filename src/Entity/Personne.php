@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
 /**
  * Personne
@@ -13,11 +14,16 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Personne
 =======
+=======
+>>>>>>> Stashed changes
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PersonneRepository;
 
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
 class Personne 
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 {
     /**
@@ -84,6 +90,7 @@ class Personne
     #[Assert\Type(type: "integer", message: "Âge doit être un nombre entier")]
     #[Assert\Range(min: 1, minMessage: "Âge doit être supérieur à 0")]
     private ?int $age = null;
+<<<<<<< Updated upstream
 >>>>>>> Stashed changes
 
     /**
@@ -95,6 +102,12 @@ class Personne
      * })
      */
     private $role;
+=======
+    
+    #[ORM\ManyToOne(targetEntity: Role::class)]
+    #[ORM\JoinColumn(name: "role_id", referencedColumnName: "role_id")]
+    private ?Role $role = null; // Add the ManyToOne relationship with Role
+>>>>>>> Stashed changes
 
 <<<<<<< Updated upstream
 
@@ -180,6 +193,17 @@ class Personne
     }
 
 
+<<<<<<< Updated upstream
   
+>>>>>>> Stashed changes
+=======
+    public function setRole(?Role $role): self
+    {
+        $this->role = $role;
+        return $this;
+    }
+
+
+ 
 >>>>>>> Stashed changes
 }

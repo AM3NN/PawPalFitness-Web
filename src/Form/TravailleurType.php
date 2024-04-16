@@ -16,14 +16,21 @@ class TravailleurType extends AbstractType
             ->add('experience')
             ->add('langue')
             ->add('categorie')
+<<<<<<< Updated upstream
             // Embed the form for Personne
             ->add('personne', PersonneType::class); // Assuming you have a PersonneType for the Personne entity
+=======
+            ->add('personne', PersonneType::class, [
+                'role_default_value' => $options['role_default_value'],
+            ]);
+>>>>>>> Stashed changes
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Travailleur::class,
+            'role_default_value' => 3,
         ]);
     }
 }

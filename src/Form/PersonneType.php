@@ -25,6 +25,7 @@ class PersonneType extends AbstractType
                 'choice_label' => 'roleName', // Adjust according to your Role entity
                 'label' => false, 
                 'mapped' => false, 
+
                 'attr' => ['style' => 'display:none'],
             ]);
     }
@@ -33,11 +34,17 @@ class PersonneType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Personne::class,
+<<<<<<< Updated upstream
             // Set the default value for the role field
             'empty_data' => function ($form) {
                 // Here, you don't need to set a default role
                 return null;
             },
+=======
+            'role_default_value' => 2, // Default role value
+            'empty_data' => null, // Ensure empty data is set to null
+>>>>>>> Stashed changes
         ]);
     }
+    
 }

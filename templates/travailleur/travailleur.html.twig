@@ -4,64 +4,156 @@
     <section class="hero-section">
         <div class="hero-items owl-carousel">
             <div class="single-hero-item set-bg" data-setbg="{{ asset('img/mainimg.png') }}">
+<<<<<<< Updated upstream
+=======
+                <!-- Signup Form -->
+>>>>>>> Stashed changes
                 <div class="signup-form">
                     <h2>Sign Up</h2>
                     {{ form_start(form, {'attr': {'class': 'custom-form', 'novalidate': 'novalidate'}}) }}
 
                     <div class="row">
+<<<<<<< Updated upstream
+=======
+                        <!-- Personne fields -->
+>>>>>>> Stashed changes
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ form_label(form.personne.nom, 'Name') }}
                                 {{ form_widget(form.personne.nom, {'attr': {'class': 'form-control', 'placeholder': 'Name'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.personne.nom) }}
+=======
+                                {% if form_errors(form.personne.nom) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.personne.nom) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.personne.prenom, 'First Name') }}
                                 {{ form_widget(form.personne.prenom, {'attr': {'class': 'form-control', 'placeholder': 'First Name'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.personne.prenom) }}
+=======
+                                {% if form_errors(form.personne.prenom) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.personne.prenom) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.personne.region, 'Region') }}
                                 {{ form_widget(form.personne.region, {'attr': {'class': 'form-control', 'placeholder': 'Region'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.personne.region) }}
+=======
+                                {% if form_errors(form.personne.region) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.personne.region) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.personne.email, 'Email') }}
                                 {{ form_widget(form.personne.email, {'attr': {'class': 'form-control', 'placeholder': 'Email'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.personne.email) }}
+=======
+                                {% if form_errors(form.personne.email) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.personne.email) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.personne.password, 'Password') }}
                                 {{ form_widget(form.personne.password, {'attr': {'class': 'form-control', 'placeholder': 'Password', 'type': 'password'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.personne.password) }}
+=======
+                                {% if form_errors(form.personne.password) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.personne.password) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.personne.age, 'Age') }}
                                 {{ form_widget(form.personne.age, {'attr': {'class': 'form-control', 'placeholder': 'Age'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.personne.age) }}
                             </div>
                         </div>
 
+=======
+                                {% if form_errors(form.personne.age) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.personne.age) }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <!-- Travailleur fields -->
+>>>>>>> Stashed changes
                         <div class="col-md-6">
                             <div class="form-group">
                                 {{ form_label(form.diplome, 'Diplome') }}
                                 {{ form_widget(form.diplome, {'attr': {'class': 'form-control', 'placeholder': 'Diplome'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.diplome) }}
+=======
+                                {% if form_errors(form.diplome) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.diplome) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.experience, 'Experience') }}
                                 {{ form_widget(form.experience, {'attr': {'class': 'form-control', 'placeholder': 'Experience'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.experience) }}
+=======
+                                {% if form_errors(form.experience) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.experience) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.langue, 'Langue') }}
                                 {{ form_widget(form.langue, {'attr': {'class': 'form-control', 'placeholder': 'Langue'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.langue) }}
+=======
+                                {% if form_errors(form.langue) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.langue) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                             <div class="form-group">
                                 {{ form_label(form.categorie, 'Categorie') }}
                                 {{ form_widget(form.categorie, {'attr': {'class': 'form-control', 'placeholder': 'Categorie'}}) }}
+<<<<<<< Updated upstream
                                 {{ form_errors(form.categorie) }}
+=======
+                                {% if form_errors(form.categorie) is not empty %}
+                                    <div class="alert alert-danger" style="padding: 5px 10px; font-size: 0.8rem;">
+                                        {{ form_errors(form.categorie) }}
+                                    </div>
+                                {% endif %}
+>>>>>>> Stashed changes
                             </div>
                         </div>
                     </div>
@@ -69,6 +161,10 @@
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                     {{ form_end(form) }}
 
+<<<<<<< Updated upstream
+=======
+                    <!-- Already have an account link -->
+>>>>>>> Stashed changes
                     <div class="already-account">
                         <p>Already have an account? <a href="{{ path('app_login') }}">Log in here</a></p>
                     </div>
@@ -76,4 +172,8 @@
             </div>
         </div>
     </section>
+<<<<<<< Updated upstream
 {% endblock %}
+=======
+{% endblock %}
+>>>>>>> Stashed changes

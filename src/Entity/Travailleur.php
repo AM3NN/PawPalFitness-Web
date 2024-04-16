@@ -63,6 +63,10 @@ class Travailleur
 
 =======
 use App\Repository\TravailleurRepository;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 #[ORM\Entity(repositoryClass: TravailleurRepository::class)]
 class Travailleur
 {
@@ -83,8 +87,12 @@ class Travailleur
     #[ORM\Column(length: 255)]
     private ?string $categorie = null;
 
+<<<<<<< Updated upstream
     #[ORM\ManyToOne(targetEntity: Personne::class, inversedBy: "travailleurs")]
     #[ORM\JoinColumn(name: "personne_id", referencedColumnName: "id")]
+=======
+    #[ORM\ManyToOne(inversedBy: "travailleurs")]
+>>>>>>> Stashed changes
     private ?Personne $personne = null;
     
 
@@ -152,5 +160,8 @@ class Travailleur
 
         return $this;
     }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
