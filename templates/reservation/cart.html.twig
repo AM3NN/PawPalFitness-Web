@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Cart{% endblock %}
+{% block body %}
+{% for cartItem in cartItems %}
+    <div>
+        <p>Reservation ID: {{ cartItem.reservation.id }}</p>
+        <p>Places: {{ cartItem.places }}</p>
+        <p>Quantity: {{ cartItem.quantity }}</p>
+        <p>Timestamp: {{ cartItem.timestamp|date('Y-m-d H:i:s') }}</p>
+    </div>
+{% endfor %}
+{% endblock %}

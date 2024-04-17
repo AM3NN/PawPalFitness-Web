@@ -2,10 +2,10 @@
 
 namespace App\Entity;
 
-use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CartRepository;
+use DateTime;
 
 #[ORM\Entity(repositoryClass: CartRepository::class)]
 class Cart
@@ -15,16 +15,17 @@ class Cart
     #[ORM\Column]
     private ?int $cartId = null;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private ?int $reservationid = null;
+    #[ORM\ManyToOne(targetEntity: Reservation::class)]
+    #[ORM\JoinColumn(name: 'reservation_id', referencedColumnName: 'id')]
+    private ?Reservation $reservation;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private ?int $places = null;
+    #[ORM\Column]
+    private ?int $places;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private ?int $quantity = null;
+    #[ORM\Column]
+    private ?int $quantity;
 
-    #[ORM\Column(options: ["default" => "CURRENT_TIMESTAMP"])]
+    #[ORM\Column(type: 'datetime', options: ["default" => "CURRENT_TIMESTAMP"])]
     private ?DateTime $timestamp;
 
     public function getCartId(): ?int
@@ -32,14 +33,14 @@ class Cart
         return $this->cartId;
     }
 
-    public function getReservationid(): ?int
+    public function getReservation(): ?Reservation
     {
-        return $this->reservationid;
+        return $this->reservation;
     }
 
-    public function setReservationid(?int $reservationid): static
+    public function setReservation(?Reservation $reservation): static
     {
-        $this->reservationid = $reservationid;
+        $this->reservation = $reservation;
 
         return $this;
     }
@@ -49,7 +50,7 @@ class Cart
         return $this->places;
     }
 
-    public function setPlaces(?int $places): static
+    public function setPlaces(int $places): static
     {
         $this->places = $places;
 
@@ -61,19 +62,19 @@ class Cart
         return $this->quantity;
     }
 
-    public function setQuantity(?int $quantity): static
+    public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getTimestamp(): ?\DateTimeInterface
+    public function getTimestamp(): ?DateTime
     {
         return $this->timestamp;
     }
 
-    public function setTimestamp(\DateTimeInterface $timestamp): static
+    public function setTimestamp(DateTime $timestamp): static
     {
         $this->timestamp = $timestamp;
 

@@ -3,110 +3,65 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\AnimalRepository;
 
-#[ORM\Entity(repositoryClass:AnimalRepository::class)]
+/**
+ * Animal
+ *
+ * @ORM\Table(name="animal")
+ * @ORM\Entity
+ */
 class Animal
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $ida=null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="IDA", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $ida;
 
-    #[ORM\Column(length: 255)]
-    private ?string $nom=null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Nom", type="string", length=255, nullable=false)
+     */
+    private $nom;
 
-    #[ORM\Column]
-    private ?int $age=null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="Age", type="integer", nullable=false)
+     */
+    private $age;
 
-    #[ORM\Column(length: 10)]
-    private ?string $categorie=null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Categorie", type="string", length=10, nullable=false)
+     */
+    private $categorie;
 
-    #[ORM\Column(length: 100)]
-    private ?string $type=null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Type", type="string", length=100, nullable=false)
+     */
+    private $type;
 
-    #[ORM\Column(length: 500)]
-    private ?string $details=null;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="Details", type="string", length=500, nullable=false)
+     */
+    private $details;
 
-    #[ORM\Column]
-    private ?float $poids=null;
-
-    public function getIda(): ?int
-    {
-        return $this->ida;
-    }
-
-    public function getNom(): ?string
-    {
-        return $this->nom;
-    }
-
-    public function setNom(string $nom): static
-    {
-        $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getAge(): ?int
-    {
-        return $this->age;
-    }
-
-    public function setAge(int $age): static
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    public function getCategorie(): ?string
-    {
-        return $this->categorie;
-    }
-
-    public function setCategorie(string $categorie): static
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getDetails(): ?string
-    {
-        return $this->details;
-    }
-
-    public function setDetails(string $details): static
-    {
-        $this->details = $details;
-
-        return $this;
-    }
-
-    public function getPoids(): ?float
-    {
-        return $this->poids;
-    }
-
-    public function setPoids(float $poids): static
-    {
-        $this->poids = $poids;
-
-        return $this;
-    }
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="Poids", type="float", precision=10, scale=0, nullable=false)
+     */
+    private $poids;
 
 
 }
