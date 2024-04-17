@@ -4,7 +4,7 @@
 
 <br><br><br><br>
     <div class="container emp-profile">
-        {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+        {{ form_start(form) }}
 
             <div class="row">
                 <div class="col-md-4">
@@ -71,6 +71,11 @@
                                     </div>
                                     <div class="col-md-6"> 
                                     <p>{{ form_widget(form.age, { 'attr': {'class': 'form-control', 'placeholder': animal.age ~ ' Ans', 'style': 'background-color: #CADAE5;'} }) }}</p>
+                                    {% if form_errors(form.age) is not empty %}
+                                    <div class="alert alert-danger">
+                                   {{ form_errors(form.age) }}
+                                   </div>
+                                   {% endif %}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -79,6 +84,11 @@
                                     </div>
                                     <div class="col-md-6">
                                     <p>{{ form_widget(form.poids, { 'attr': {'class': 'form-control', 'placeholder': animal.poids ~ ' KG', 'style': 'background-color: #CADAE5;'} }) }}</p>
+                                     {% if form_errors(form.poids) is not empty %}
+                                    <div class="alert alert-danger">
+                                   {{ form_errors(form.poids) }}
+                                  </div>
+                                    {% endif %}
                                     </div>
                                 </div>
                                 <div class="row">
@@ -87,6 +97,11 @@
                                     </div>
                                     <div class="col-md-6">
                                     <p>{{ form_widget(form.details, { 'attr': {'class': 'form-control', 'placeholder': animal.details, 'style': 'background-color: #CADAE5;'} }) }}</p>
+                                    {% if form_errors(form.details) is not empty %}
+                               <div class="alert alert-danger">
+                                {{ form_errors(form.details) }}
+                               </div>
+                                {% endif %}
                                     </div>
                                 </div>
                         </div>

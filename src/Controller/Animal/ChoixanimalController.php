@@ -40,13 +40,21 @@ class ChoixanimalController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+           $existingAnimal = $em->getRepository(Animal::class)->findOneBy(['nom' => $animal->getNom()]);
+
+           if ($existingAnimal) {
+            $this->addFlash('error', 'Ce nom d\'animal existe déjà');
+            return $this->redirectToRoute('app_affformajout');}
+
            $em->persist($animal);
            $em->flush();
+           $this->addFlash('success', 'L\'animal a été ajouté avec succès.');
            return $this->redirectToRoute('app_afficher');
         }
-        else{
-            return $this->renderForm("Animal/ajouteranimal.html.twig", ["form" => $form]);
-        }
+        
+        return $this->renderForm("Animal/ajouteranimal.html.twig", ["form" => $form->createView()]);
+        
     }
 
     #[Route('/favoris/{nom}', name: 'animal_favoris')]
@@ -59,11 +67,9 @@ class ChoixanimalController extends AbstractController
         $existingFavoris = $favRepository->findOneBy(['ida' => $animal]);
 
         if ($existingFavoris) {
-            // If the animal already exists in the favoris table, delete it
             $em->remove($existingFavoris);
             $em->flush();
         } else {
-            // If the animal does not exist in the favoris table, add it
             $fav = new Favoris();
             $fav->setIda($animal);
             $fav->setNoma($animal->getNom());
@@ -85,9 +91,9 @@ class ChoixanimalController extends AbstractController
             $em->flush();
             return $this->render('Animal/detailsanimal.html.twig',["form" => $form,'nom'=>$nom,'animal'=>$animal]);
         }
-        else{
-            return $this->renderForm('Animal/detailsanimal.html.twig',["form" => $form,'nom'=>$nom,'animal'=>$animal]);
-        }
+        
+        return $this->renderForm('Animal/detailsanimal.html.twig',["form" => $form,'nom'=>$nom,'animal'=>$animal]);
+        
     }
 
     #[Route('/delete/{nom}', name: 'animal_del')]

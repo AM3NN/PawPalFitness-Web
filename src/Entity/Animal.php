@@ -19,6 +19,8 @@ class Animal
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Vous devez mettre l'age!!!")]
+    #[Assert\Type(type: "integer", message: "Âge doit être un nombre entier")]
+    #[Assert\Range(min: 1, minMessage: "Âge doit être supérieur à 0")]
     private ?int $age=null;
 
     #[ORM\Column(length: 10)]
@@ -35,6 +37,11 @@ class Animal
 
     #[ORM\Column]
     #[Assert\NotBlank(message: "Vous devez mettre le poids!!!")]
+    #[Assert\Type(type: "float", message: "poids doit être un nombre")]
+    #[Assert\Range(
+        min: 0.1,
+        minMessage: "Le poids doit être supérieur à 0",
+    )]
     private ?float $poids=null;
 
     public function getIda(): ?int

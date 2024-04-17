@@ -10,23 +10,28 @@
                         <h3>Add Your Pet Today</h3>
                         <br>
                         
-                        {{form_start(form,{'attr':{'novalidate':'novalidate'}})}}
+                        {{ form_start(form) }}
+
+                        {% if app.session.flashbag.has('error') %}
+                            {% set errorMessages = app.session.flashbag.get('error') %}
+                                {% for errorMessage in errorMessages %}
+                                    <div class="alert alert-danger">{{ errorMessage }}</div>
+                                {% endfor %}
+                        {% endif %}
 
                             <div class="col-md-12">
                                <div class="row">
-
                                   <div class="col-md-2">
                                     {{ form_label(form.nom, "Name") }}
                                   </div>
                                   <div class="col-md-10">
                                     {{ form_widget(form.nom, { 'attr': {'class': 'form-control', 'placeholder': 'Enter your pet\'s name','style': 'margin-bottom: 10px;'} }) }}
-                                    {% if form_errors(form.nom) %}
-                                      <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.nom) }}
-                                      </div>
+                                    {% if form_errors(form.nom) is not empty %}
+                                    <div class="alert alert-danger">
+                                    {{ form_errors(form.nom) }}
+                                    </div>
                                     {% endif %}
                                   </div>
-                            
                                 </div>
                             </div>
 
@@ -37,13 +42,12 @@
                                    </div>
                                    <div class="col-md-10">
                                     {{ form_widget(form.age,{ 'attr': {'class': 'form-control', 'placeholder': 'Enter your pet\'s  age', 'style': 'background-color: #FBEEE6;'} }) }} 
-                                   {% if form_errors(form.nom) %}
-                                      <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.nom) }}
-                                      </div>
-                                    {% endif %}
+                                    {% if form_errors(form.age) is not empty %}
+                                    <div class="alert alert-danger">
+                                   {{ form_errors(form.age) }}
                                    </div>
-                                   
+                                   {% endif %}
+                                   </div>
                                 </div>
                             </div>
 
@@ -54,13 +58,12 @@
                                     </div>
                                     <div class="col-md-10">
                                       {{ form_widget(form.poids,{ 'attr': {'class': 'form-control', 'placeholder': 'Enter your pet\'s  weight'} }) }}
-                                      {% if form_errors(form.nom) %}
-                                      <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.nom) }}
-                                      </div>
+                                      {% if form_errors(form.poids) is not empty %}
+                                    <div class="alert alert-danger">
+                                   {{ form_errors(form.poids) }}
+                                  </div>
                                     {% endif %}
-                                      </div>
-
+                                  </div>
                                 </div> 
                             </div>
 
@@ -71,11 +74,11 @@
                                 </div>
                                 <div class="col-md-10">
                                   {{ form_widget(form.type,{'attr':{'placeholder': 'Enter your pet\'s  type'}}) }}
-                                  {% if form_errors(form.nom) %}
-                                      <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.nom) }}
-                                      </div>
-                                    {% endif %}
+                                  {% if form_errors(form.type) is not empty %}
+                                 <div class="alert alert-danger">
+                                 {{ form_errors(form.type) }}
+                                </div>
+                                {% endif %}
                                 </div>
                               </div>
                            </div>
@@ -87,27 +90,22 @@
                                   </div>
                                   <div class="col-md-10">
                                    {{ form_widget(form.categorie) }} 
-                                   {% if form_errors(form.nom) %}
-                                      <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.nom) }}
-                                      </div>
-                                    {% endif %}
                                   </div>
                                 </div>
                             </div>
 
                             <div class="col-md-12">
                                 {{ form_label(form.details,"Details") }}
-                               {{ form_widget(form.details,{ 'attr': {'class': 'form-control', 'placeholder': 'Enter your pet\'s details', 'style': 'background-color: #FBEEE6;'} }) }} 
-                            {% if form_errors(form.nom) %}
-                                      <div class="alert alert-danger" role="alert">
-                                        {{ form_errors(form.nom) }}
-                                      </div>
-                                    {% endif %}
+                                {{ form_widget(form.details,{ 'attr': {'class': 'form-control', 'placeholder': 'Enter your pet\'s details', 'style': 'background-color: #FBEEE6;'} }) }} 
+                               {% if form_errors(form.details) is not empty %}
+                               <div class="alert alert-danger">
+                                {{ form_errors(form.details) }}
+                               </div>
+                                {% endif %}
                             </div>
 
                             <div class="form-button mt-3">
-                                    {{ form_widget(form.Add, { 'attr': {'class': 'btn btn-primary btn-lg btn-block'} }) }}
+                              {{ form_widget(form.Add, { 'attr': {'class': 'btn btn-primary btn-lg btn-block'} }) }}
                             </div>
                         
                         {{form_end(form)}}
