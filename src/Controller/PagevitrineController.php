@@ -25,4 +25,5 @@ class PagevitrineController extends AbstractController
     {
         return $this->render('pagevitrine/ourteam.html.twig');
     }
+
 }
