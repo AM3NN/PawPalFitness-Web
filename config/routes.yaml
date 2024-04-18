@@ -8,3 +8,8 @@ controllers:
 cart:
     path: /cart
     controller: App\Controller\CartController::index
+
+app_edit:
+    path: '/edit'
+    controller: 'App\Controller\ReservationBack\ResBackController::edit'
+    methods: ['GET', 'POST']

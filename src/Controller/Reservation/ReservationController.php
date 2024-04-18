@@ -33,7 +33,13 @@ class ReservationController extends AbstractController
         ]);
     }
 
-    #[Route('/add-to-cart/{id}', name: 'add_to_cart')]
+    
+
+
+
+
+    
+   /* #[Route('/add-to-cart/{id}', name: 'add_to_cart')]
     public function addToCart(Reservation $reservation): Response
     {
         // Create a new Cart item
@@ -50,5 +56,7 @@ class ReservationController extends AbstractController
 
         // Redirect back to the reservation page or wherever appropriate
         return $this->redirectToRoute('planning');
-    }
+    }*/
+
+
 }

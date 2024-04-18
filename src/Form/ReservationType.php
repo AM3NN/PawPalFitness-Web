@@ -14,14 +14,14 @@ class ReservationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('places', IntegerType::class)
-            ->add('category', TextType::class)
-            ->add('date', TextType::class)
-            ->add('startTime', TextType::class)
-            ->add('endTime', TextType::class)
-            ->add('status', TextType::class)
-            ->add('duration', IntegerType::class)
-            ->add('pricing', IntegerType::class);
+            ->add('places')
+            ->add('category')
+            ->add('date')
+            ->add('startTime')
+            ->add('endTime')
+            ->add('status')
+            ->add('duration')
+            ->add('pricing');
     }
 
     public function configureOptions(OptionsResolver $resolver)
