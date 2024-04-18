@@ -46,7 +46,7 @@ class Personne
     
     #[ORM\ManyToOne(targetEntity: Role::class)]
     #[ORM\JoinColumn(name: "role_id", referencedColumnName: "role_id")]
-    private ?Role $role = null; // Add the ManyToOne relationship with Role
+    private ?Role $role = null; 
 
     public function getId(): ?int
     {

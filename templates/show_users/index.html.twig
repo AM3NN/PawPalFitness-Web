@@ -1,0 +1,95 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+<style>
+    /* Center-align the table */
+    table {
+        width: 80%; /* Adjust the width as needed */
+        margin: 0 auto; /* Center-align the table horizontally */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px; /* Add padding for better appearance */
+        border-bottom: 1px solid #ddd; /* Add border between table rows */
+        text-align: left; /* Align text to the left within table cells */
+    }
+
+    th {
+        background-color: #f2f2f2; /* Add background color to table header */
+    }
+
+    .delete-btn {
+        background-color: #f44336; /* Red color for delete button */
+        color: white;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .delete-btn:hover {
+        background-color: #d32f2f; /* Darker red color on hover */
+    }
+
+    /* Move the table to the right */
+    @media only screen and (min-width: 768px) {
+        table {
+            margin-left: auto;
+        }
+    }
+</style>
+
+<h1 style="text-align: center;">All Users</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Région</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Action</th> <!-- Added column for delete button -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.nom }}</td>
+                <td>{{ user.prenom }}</td>
+                <td>{{ user.region }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.age }}</td>
+                <td>
+                    <button class="delete-btn" onclick="deleteUser({{ user.id }})">Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- JavaScript function to handle delete operation -->
+<script>
+    function deleteUser(userId) {
+        if (confirm("Are you sure you want to delete this user?")) {
+            // Make an AJAX request to delete the user
+            fetch(`/delete/user/${userId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`User with ID ${userId} deleted successfully`);
+                    location.reload();
+                } else {
+                    console.error('Error deleting user');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting user:', error);
+            });
+        }
+    }
+</script>
+{% endblock %}

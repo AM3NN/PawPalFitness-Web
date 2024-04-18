@@ -1,0 +1,103 @@
+{% extends 'baseback.html.twig' %}
+
+{% block body %}
+<style>
+    /* Center-align the table */
+    table {
+        width: 80%; /* Adjust the width as needed */
+        margin: 0 auto; /* Center-align the table horizontally */
+        border-collapse: collapse;
+    }
+
+    th, td {
+        padding: 8px; /* Add padding for better appearance */
+        border-bottom: 1px solid #ddd; /* Add border between table rows */
+        text-align: left; /* Align text to the left within table cells */
+    }
+
+    th {
+        background-color: #f2f2f2; /* Add background color to table header */
+    }
+
+    .delete-btn {
+        background-color: #f44336; /* Red color for delete button */
+        color: white;
+        padding: 6px 12px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .delete-btn:hover {
+        background-color: #d32f2f; /* Darker red color on hover */
+    }
+
+    /* Move the table to the right */
+    @media only screen and (min-width: 768px) {
+        table {
+            margin-left: auto;
+        }
+    }
+</style>
+
+<h1 style="text-align: center;">All Travailleurs</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Région</th>
+            <th>Email</th>
+            <th>Age</th>
+            <th>Diplome</th>
+            <th>Experience</th>
+            <th>Langue</th>
+            <th>Categorie</th>
+            <th>Action</th> <!-- Added column for delete button -->
+        </tr>
+    </thead>
+    <tbody>
+        {% for travailleur in travailleurs %}
+            <tr>
+                <td>{{ travailleur.personne.id }}</td>
+                <td>{{ travailleur.personne.nom }}</td>
+                <td>{{ travailleur.personne.prenom }}</td>
+                <td>{{ travailleur.personne.region }}</td>
+                <td>{{ travailleur.personne.email }}</td>
+                <td>{{ travailleur.personne.age }}</td>
+                <td>{{ travailleur.diplome }}</td>
+                <td>{{ travailleur.experience }}</td>
+                <td>{{ travailleur.langue }}</td>
+                <td>{{ travailleur.categorie }}</td>
+                <td>
+                    <button class="delete-btn" onclick="deleteTravailleur({{ travailleur.personne.id }})">Delete</button>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- JavaScript function to handle delete operation -->
+<script>
+    function deleteTravailleur(personneId) {
+        if (confirm("Are you sure you want to delete this travailleur?")) {
+            // Make an AJAX request to delete the travailleur
+            fetch(`/delete/travailleur/${personneId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Travailleur with Personne ID ${personneId} deleted successfully`);
+                    location.reload();
+                } else {
+                    console.error('Error deleting travailleur');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting travailleur:', error);
+            });
+        }
+    }
+</script>
+{% endblock %}

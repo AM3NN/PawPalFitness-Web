@@ -50,9 +50,11 @@ class TravailleurController extends AbstractController
             if (!$role) {
                 throw $this->createNotFoundException('Default role not found.');
             }
+
         
             // Set the role for the Personne associated with Travailleur
             $personneData->setRole($role);
+            
             
             // Set the Personne object with form data
             $personneData->setNom($form->get('personne')->get('nom')->getData());
