@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
     "doctrine/annotations": {
         "version": "2.0",
         "recipe": {
@@ -20,12 +21,64 @@
             "./config/packages/doctrine.yaml",
             "./src/Entity/.gitignore",
             "./src/Repository/.gitignore"
+=======
+    "dama/doctrine-test-bundle": {
+        "version": "6.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.0",
+            "ref": "2c920f73a217f30bd4a37833c91071f4d3dc1ecd"
+        },
+        "files": [
+            "./config/packages/test/dama_doctrine_test_bundle.yaml"
+        ]
+    },
+    "doctrine/annotations": {
+        "version": "1.14",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "a2759dd6123694c8d901d0ec80006e044c2e6457"
+        },
+        "files": [
+            "./config/routes/annotations.yaml"
+        ]
+    },
+    "doctrine/doctrine-bundle": {
+        "version": "2.12",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "2.4",
+            "ref": "91690c0a440faba1a3676256bcca2b4aa9f55b72"
+        },
+        "files": [
+            "./config/packages/doctrine.yaml",
+            "./src/Entity/.gitignore",
+            "./src/Repository/.gitignore"
+        ]
+    },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
+        },
+        "files": [
+            "./src/DataFixtures/AppFixtures.php"
+>>>>>>> Stashed changes
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
         "version": "3.3",
         "recipe": {
             "repo": "github.com/symfony/recipes",
+<<<<<<< Updated upstream
+=======
             "branch": "main",
             "version": "3.1",
             "ref": "1d01ec03c6ecbd67c3375c5478c9a423ae5d6a33"
@@ -35,6 +88,33 @@
             "./migrations/.gitignore"
         ]
     },
+    "sensio/framework-extra-bundle": {
+        "version": "5.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.2",
+            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
+        },
+        "files": [
+            "./config/packages/sensio_framework_extra.yaml"
+        ]
+    },
+    "stof/doctrine-extensions-bundle": {
+        "version": "1.11",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+>>>>>>> Stashed changes
+            "branch": "main",
+            "version": "3.1",
+            "ref": "1d01ec03c6ecbd67c3375c5478c9a423ae5d6a33"
+        },
+        "files": [
+            "./config/packages/doctrine_migrations.yaml",
+            "./migrations/.gitignore"
+        ]
+    },
+<<<<<<< Updated upstream
     "phpunit/phpunit": {
         "version": "9.6",
         "recipe": {
@@ -66,6 +146,10 @@
     },
     "symfony/console": {
         "version": "6.4",
+=======
+    "symfony/console": {
+        "version": "5.4",
+>>>>>>> Stashed changes
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -76,6 +160,7 @@
             "./bin/console"
         ]
     },
+<<<<<<< Updated upstream
     "symfony/debug-bundle": {
         "version": "6.4",
         "recipe": {
@@ -88,6 +173,8 @@
             "./config/packages/debug.yaml"
         ]
     },
+=======
+>>>>>>> Stashed changes
     "symfony/flex": {
         "version": "2.4",
         "recipe": {
@@ -101,12 +188,21 @@
         ]
     },
     "symfony/framework-bundle": {
+<<<<<<< Updated upstream
         "version": "6.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.4",
             "ref": "a91c965766ad3ff2ae15981801643330eb42b6a5"
+=======
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.4",
+            "ref": "3cd216a4d007b78d8554d44a5b1c0a446dab24fb"
+>>>>>>> Stashed changes
         },
         "files": [
             "./config/packages/cache.yaml",
@@ -119,6 +215,7 @@
             "./src/Kernel.php"
         ]
     },
+<<<<<<< Updated upstream
     "symfony/mailer": {
         "version": "6.4",
         "recipe": {
@@ -136,10 +233,18 @@
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
+=======
+    "symfony/maker-bundle": {
+        "version": "1.43",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+>>>>>>> Stashed changes
             "version": "1.0",
             "ref": "fadbfe33303a76e25cb63401050439aa9b1a9c7f"
         }
     },
+<<<<<<< Updated upstream
     "symfony/messenger": {
         "version": "6.4",
         "recipe": {
@@ -183,6 +288,15 @@
             "branch": "main",
             "version": "6.3",
             "ref": "a411a0480041243d97382cac7984f7dce7813c08"
+=======
+    "symfony/phpunit-bridge": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "07ce01a897311647520b43d4ddddad9537b99ba6"
+>>>>>>> Stashed changes
         },
         "files": [
             "./.env.test",
@@ -192,18 +306,28 @@
         ]
     },
     "symfony/routing": {
+<<<<<<< Updated upstream
         "version": "6.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.2",
             "ref": "e0a11b4ccb8c9e70b574ff5ad3dfdcd41dec5aa6"
+=======
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "85de1d8ae45b284c3c84b668171d2615049e698f"
+>>>>>>> Stashed changes
         },
         "files": [
             "./config/packages/routing.yaml",
             "./config/routes.yaml"
         ]
     },
+<<<<<<< Updated upstream
     "symfony/security-bundle": {
         "version": "6.4",
         "recipe": {
@@ -251,17 +375,31 @@
             "branch": "main",
             "version": "6.4",
             "ref": "cab5fd2a13a45c266d45a7d9337e28dee6272877"
+=======
+    "symfony/twig-bundle": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.4",
+            "ref": "bb2178c57eee79e6be0b297aa96fc0c0def81387"
+>>>>>>> Stashed changes
         },
         "files": [
             "./config/packages/twig.yaml",
             "./templates/base.html.twig"
         ]
     },
+<<<<<<< Updated upstream
     "symfony/ux-turbo": {
         "version": "v2.16.0"
     },
     "symfony/validator": {
         "version": "6.4",
+=======
+    "symfony/validator": {
+        "version": "5.4",
+>>>>>>> Stashed changes
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -273,18 +411,28 @@
         ]
     },
     "symfony/web-profiler-bundle": {
+<<<<<<< Updated upstream
         "version": "6.4",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
             "version": "6.1",
             "ref": "e42b3f0177df239add25373083a564e5ead4e13a"
+=======
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "5.3",
+            "ref": "24bbc3d84ef2f427f82104f766014e799eefcc3e"
+>>>>>>> Stashed changes
         },
         "files": [
             "./config/packages/web_profiler.yaml",
             "./config/routes/web_profiler.yaml"
         ]
     },
+<<<<<<< Updated upstream
     "symfony/webapp-pack": {
         "version": "1.3",
         "recipe": {
@@ -297,6 +445,8 @@
             "./config/packages/messenger.yaml"
         ]
     },
+=======
+>>>>>>> Stashed changes
     "twig/extra-bundle": {
         "version": "v3.8.0"
     }

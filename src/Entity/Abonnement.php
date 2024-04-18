@@ -2,101 +2,122 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
-use Doctrine\ORM\Mapping as ORM;
-
 use App\Repository\AbonnementRepository;
-use DateTime;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass:AbonnementRepository::class)]
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
+#[Assert\Callback(callback: 'validateDates')]
+#[Assert\Callback(callback: 'validateStartDate')]
+#[ORM\Entity(repositoryClass: AbonnementRepository::class)]
 class Abonnement
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $idAbonnement=null;
+    #[ORM\Column(type: 'integer')]
+    private $id;
 
-    #[ORM\Column(length: 255)]
-    private ?string $dureeAbonnement=null;
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    private $duree_abonnement;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    private $prix_abonnement;
 
-    #[ORM\Column]
-    private ?float $prixAbonnement=null;
+    #[ORM\Column(type: 'date')]
+    #[Assert\NotBlank]
+    private $date_deb_abonnement;
 
-    #[ORM\Column]
-    private ?DateTime $dateDebAbonnement;
+    #[ORM\Column(type: 'date')]
+    #[Assert\NotBlank]
+    private $date_fin_abonnement;
 
-    #[ORM\Column]
-    private ?DateTime $dateFinAbonnement;
+    #[ORM\ManyToOne(targetEntity: Salle::class, inversedBy: 'abonnements')]
+    #[Assert\NotBlank]
+    private $salle;
 
-    #[ORM\ManyToOne(inversedBy: "abonnements")]
-    private ?SalleDeSport $idSalle;
-
-    public function getIdAbonnement(): ?int
+    public function getId(): ?int
     {
-        return $this->idAbonnement;
+        return $this->id;
     }
 
     public function getDureeAbonnement(): ?string
     {
-        return $this->dureeAbonnement;
+        return $this->duree_abonnement;
     }
 
-    public function setDureeAbonnement(string $dureeAbonnement): static
+    public function setDureeAbonnement(string $duree_abonnement): self
     {
-        $this->dureeAbonnement = $dureeAbonnement;
+        $this->duree_abonnement = $duree_abonnement;
 
         return $this;
     }
 
-    public function getPrixAbonnement(): ?float
+    public function getPrixAbonnement(): ?string
     {
-        return $this->prixAbonnement;
+        return $this->prix_abonnement;
     }
 
-    public function setPrixAbonnement(float $prixAbonnement): static
+    public function setPrixAbonnement(string $prix_abonnement): self
     {
-        $this->prixAbonnement = $prixAbonnement;
+        $this->prix_abonnement = $prix_abonnement;
 
         return $this;
     }
 
     public function getDateDebAbonnement(): ?\DateTimeInterface
     {
-        return $this->dateDebAbonnement;
+        return $this->date_deb_abonnement;
     }
 
-    public function setDateDebAbonnement(\DateTimeInterface $dateDebAbonnement): static
+    public function setDateDebAbonnement(\DateTimeInterface $date_deb_abonnement): self
     {
-        $this->dateDebAbonnement = $dateDebAbonnement;
+        $this->date_deb_abonnement = $date_deb_abonnement;
 
         return $this;
     }
 
     public function getDateFinAbonnement(): ?\DateTimeInterface
     {
-        return $this->dateFinAbonnement;
+        return $this->date_fin_abonnement;
     }
 
-    public function setDateFinAbonnement(\DateTimeInterface $dateFinAbonnement): static
+    public function setDateFinAbonnement(\DateTimeInterface $date_fin_abonnement): self
     {
-        $this->dateFinAbonnement = $dateFinAbonnement;
+        $this->date_fin_abonnement = $date_fin_abonnement;
 
         return $this;
     }
 
-    public function getIdSalle(): ?SalleDeSport
+    public function getSalle(): ?Salle
     {
-        return $this->idSalle;
+        return $this->salle;
     }
 
-    public function setIdSalle(?SalleDeSport $idSalle): static
+    public function setSalle(?Salle $salle): self
     {
-        $this->idSalle = $idSalle;
+        $this->salle = $salle;
 
         return $this;
     }
-
-
-
+    public function validateDates(ExecutionContextInterface $context, $payload)
+    {
+        if ($this->date_deb_abonnement >= $this->date_fin_abonnement) {
+            $context->buildViolation('The start date must be before the end date.')
+                ->atPath('date_deb_abonnement')
+                ->addViolation();
+        }
+    }
+    public function validateStartDate(ExecutionContextInterface $context, $payload)
+    {
+        $yesterday = new \DateTime('yesterday');
+        
+        if ($this->date_deb_abonnement <= $yesterday) {
+            $context->buildViolation('The start date must be after yesterday.')
+                ->atPath('date_deb_abonnement')
+                ->addViolation();
+        }
+    }
 }

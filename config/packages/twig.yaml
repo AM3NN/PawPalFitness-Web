@@ -1,5 +1,9 @@
 twig:
+<<<<<<< Updated upstream
     file_name_pattern: '*.twig'
+=======
+    default_path: '%kernel.project_dir%/templates'
+>>>>>>> Stashed changes
 
 when@test:
     twig:
