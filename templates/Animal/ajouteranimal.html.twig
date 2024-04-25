@@ -10,7 +10,7 @@
                         <h3>Add Your Pet Today</h3>
                         <br>
                         
-                        {{ form_start(form) }}
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
                         {% if app.session.flashbag.has('error') %}
                             {% set errorMessages = app.session.flashbag.get('error') %}
