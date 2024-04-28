@@ -46,7 +46,7 @@ class Personne
     
     #[ORM\ManyToOne(targetEntity: Role::class)]
     #[ORM\JoinColumn(name: "role_id", referencedColumnName: "role_id")]
-    private ?Role $role = null; // Add the ManyToOne relationship with Role
+    private ?Role $role = null; 
 
     public function getId(): ?int
     {
@@ -79,7 +79,11 @@ class Personne
     {
         return $this->region;
     }
-
+    public function checkPassword(string $plainPassword): bool
+    {
+        // Hash the plain password using the same algorithm and compare it with the stored hashed password
+        return hash('sha256', $plainPassword) === $this->password;
+    }
     public function setRegion(string $region): self
     {
         $this->region = $region;
