@@ -45,6 +45,8 @@
                 <a href="#"><i class="fa fa-youtube-play"></i></a>
                 <a href="#"><i class="fa fa-instagram"></i></a>
 <a href="#" id="showProfile" data-user-id="{{ user.id }}"><i class="fa fa-facebook"></i> Show Profile</a>
+<a href="{{ path('app_login') }}"><i class="fa fa-sign-out"></i> Logout</a>
+
 
 <div id="profileSection" style="display: none;">
   <section class="vh-100 d-flex align-items-center justify-content-center" style="background-color: #eee;">
@@ -57,11 +59,10 @@
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava2-bg.webp"
                   class="rounded-circle img-fluid" style="width: 100px;" alt="Profile Picture" />
               </div>
-              <h4 class="mb-2" id="profileName"></h4>
+              <h4 class="mb-2" id="profileName">Hello {{ user.nom }}</h4>
               <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-rounded btn-lg" onclick="window.location.href='{{ path('app_update_profile', {'id': user.id}) }}'">
                 Update Profile
               </button>
-              <!-- Add the "Update Password" button below -->
               <button type="button" class="btn btn-secondary btn-rounded btn-lg mt-3" onclick="window.location.href='{{ path('app_update_password', {'id': user.id}) }}'">
                 Update Password
               </button>
@@ -81,6 +82,7 @@
     profileSection.style.display = profileSection.style.display === 'none' ? 'block' : 'none';
   });
 </script>
+
 
 
             </div>

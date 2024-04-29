@@ -19,16 +19,17 @@
         background-color: #f2f2f2; /* Add background color to table header */
     }
 
-    .delete-btn {
+    .delete-btn, .ban-btn, .unban-btn {
         background-color: #f44336; /* Red color for delete button */
         color: white;
         padding: 6px 12px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        margin-right: 5px;
     }
 
-    .delete-btn:hover {
+    .delete-btn:hover, .ban-btn:hover, .unban-btn:hover {
         background-color: #d32f2f; /* Darker red color on hover */
     }
 
@@ -38,9 +39,35 @@
             margin-left: auto;
         }
     }
+
+    /* Increase the size of the search input */
+    #searchForm {
+        text-align: center; /* Center-align the search form */
+    }
+
+    #searchInput {
+        width: 80%; /* Set the width to 80% to control the size */
+        padding: 10px; /* Add padding to increase height */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        font-size: 16px; /* Adjust font size */
+    }
+
+    /* Style for the button */
+    #sortByAgeButton {
+        display: block; /* Display the button as a block-level element */
+        margin: 10px auto; /* Center-align the button horizontally with some margin */
+    }
 </style>
 
 <h1 style="text-align: center;">All Users</h1>
+
+<!-- Search form -->
+<form id="searchForm">
+    <input type="text" id="searchInput" onkeyup="searchUsers()" placeholder="Search for users...">
+</form>
+
+<button id="sortByAgeButton" onclick="sortByAge()">Sort by Age</button> <!-- Button for sorting by age -->
+
 <table>
     <thead>
         <tr>
@@ -53,7 +80,7 @@
             <th>Action</th> <!-- Added column for delete button -->
         </tr>
     </thead>
-    <tbody>
+    <tbody id="userTableBody">
         {% for user in users %}
             <tr>
                 <td>{{ user.id }}</td>
@@ -64,6 +91,11 @@
                 <td>{{ user.age }}</td>
                 <td>
                     <button class="delete-btn" onclick="deleteUser({{ user.id }})">Delete</button>
+                    {% if user.isBanned %}
+                        <button class="unban-btn" onclick="unbanUser({{ user.id }})">Unban</button>
+                    {% else %}
+                        <button class="ban-btn" onclick="banUser({{ user.id }})">Ban</button>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}
@@ -89,6 +121,92 @@
             .catch(error => {
                 console.error('Error deleting user:', error);
             });
+        }
+    }
+
+    function banUser(userId) {
+        if (confirm("Are you sure you want to ban this user?")) {
+            // Make an AJAX request to ban the user
+            fetch(`/ban/user/${userId}`, {
+                method: 'POST'
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`User with ID ${userId} banned successfully`);
+                    location.reload();
+                } else {
+                    console.error('Error banning user');
+                }
+            })
+            .catch(error => {
+                console.error('Error banning user:', error);
+            });
+        }
+    }
+
+    function unbanUser(userId) {
+        if (confirm("Are you sure you want to unban this user?")) {
+            fetch(`/unban/user/${userId}`, {
+                method: 'POST'
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log(`User with ID ${userId} unbanned successfully`);
+                    location.reload();
+                } else {
+                    console.error('Error unbanning user');
+                }
+            })
+            .catch(error => {
+                console.error('Error unbanning user:', error);
+            });
+        }
+    }
+    function searchUsers() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("userTableBody");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those that don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (var j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    }
+
+    function sortByAge() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("userTableBody");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 0; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = parseInt(rows[i].getElementsByTagName("td")[5].innerText);
+                y = parseInt(rows[i + 1].getElementsByTagName("td")[5].innerText);
+                if (x > y) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
         }
     }
 </script>

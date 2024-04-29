@@ -40,4 +40,26 @@ class ShowUsersController extends AbstractController
         // Redirect back to the show users page
         return $this->redirectToRoute('app_show_users');
     }
+
+    #[Route('/ban/user/{id}', name: 'app_ban_user')]
+    public function banUser(Personne $user): RedirectResponse
+    {
+        // Ban the user
+        $user->setIsBanned(true);
+        $this->entityManager->flush();
+
+        // Redirect back to the show users page
+        return $this->redirectToRoute('app_show_users');
+    }
+
+    #[Route('/unban/user/{id}', name: 'app_unban_user')]
+    public function unbanUser(Personne $user): RedirectResponse
+    {
+        // Unban the user
+        $user->setIsBanned(false);
+        $this->entityManager->flush();
+
+        // Redirect back to the show users page
+        return $this->redirectToRoute('app_show_users');
+    }
 }

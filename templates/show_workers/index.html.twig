@@ -32,15 +32,30 @@
         background-color: #d32f2f; /* Darker red color on hover */
     }
 
-    /* Move the table to the right */
-    @media only screen and (min-width: 768px) {
-        table {
-            margin-left: auto;
-        }
+    /* Search input styles */
+    #searchInput {
+        width: 80%; /* Set the width to 80% to control the size */
+        padding: 10px; /* Add padding to increase height */
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+        font-size: 16px; /* Adjust font size */
+        margin: 0 auto; /* Center the search input */
+        display: block; /* Make it a block-level element */
+    }
+
+    /* Button styles */
+    #sortByAgeButton {
+        display: block; /* Make it a block-level element */
+        margin: 10px auto; /* Center the button */
     }
 </style>
 
 <h1 style="text-align: center;">All Travailleurs</h1>
+
+<!-- Search form -->
+<input type="text" id="searchInput" onkeyup="searchTravailleurs()" placeholder="Search for Travailleurs...">
+
+<button id="sortByAgeButton" onclick="sortByAge()">Sort by Age</button>
+
 <table>
     <thead>
         <tr>
@@ -57,7 +72,7 @@
             <th>Action</th> <!-- Added column for delete button -->
         </tr>
     </thead>
-    <tbody>
+    <tbody id="travailleurTableBody">
         {% for travailleur in travailleurs %}
             <tr>
                 <td>{{ travailleur.personne.id }}</td>
@@ -97,6 +112,54 @@
             .catch(error => {
                 console.error('Error deleting travailleur:', error);
             });
+        }
+    }
+
+    function searchTravailleurs() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("travailleurTableBody");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those that don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td");
+            for (var j = 0; j < td.length; j++) {
+                if (td[j]) {
+                    txtValue = td[j].textContent || td[j].innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                        break;
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    }
+
+    function sortByAge() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("travailleurTableBody");
+        switching = true;
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 0; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = parseInt(rows[i].getElementsByTagName("td")[5].innerText);
+                y = parseInt(rows[i + 1].getElementsByTagName("td")[5].innerText);
+                if (x > y) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
         }
     }
 </script>

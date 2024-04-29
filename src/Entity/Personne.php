@@ -16,7 +16,8 @@ class Personne
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Nom est obligatoire")]
     private ?string $nom = null;
-
+    #[ORM\Column(type: "boolean")]
+    private bool $isBanned = false;
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Prénom est obligatoire")]
     private ?string $prenom = null;
@@ -63,7 +64,16 @@ class Personne
         $this->nom = $nom;
         return $this;
     }
-
+    public function getIsBanned(): bool
+    {
+        return $this->isBanned;
+    }
+    
+    public function setIsBanned(bool $isBanned): self
+    {
+        $this->isBanned = $isBanned;
+        return $this;
+    }
     public function getPrenom(): ?string
     {
         return $this->prenom;
@@ -79,7 +89,11 @@ class Personne
     {
         return $this->region;
     }
-
+    public function checkPassword(string $plainPassword): bool
+    {
+        // Hash the plain password using the same algorithm and compare it with the stored hashed password
+        return hash('sha256', $plainPassword) === $this->password;
+    }
     public function setRegion(string $region): self
     {
         $this->region = $region;
