@@ -2,58 +2,47 @@
 
 namespace App\Entity;
 
-use DateTime;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use App\Repository\CartRepository;
 
-#[ORM\Entity(repositoryClass: CartRepository::class)]
+
+
+/**
+ * Cart
+ *
+ * @ORM\Table(name="cart", indexes={@ORM\Index(name="nom", columns={"productid"})})
+ * @ORM\Entity
+ */
 class Cart
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $cartId = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private ?int $reservationid = null;
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="quantity", type="integer", nullable=false)
+     */
+    private $quantity;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private ?int $places = null;
+    /**
+     * @var \Products
+     *
+     * @ORM\ManyToOne(targetEntity="Products")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="id", referencedColumnName="nom")
+     * })
+     */
+    private $productid;
 
-    #[ORM\Column(type: "integer", nullable: true)]
-    private ?int $quantity = null;
-
-    #[ORM\Column(options: ["default" => "CURRENT_TIMESTAMP"])]
-    private ?DateTime $timestamp;
-
-    public function getCartId(): ?int
+    public function getId(): ?int
     {
-        return $this->cartId;
-    }
-
-    public function getReservationid(): ?int
-    {
-        return $this->reservationid;
-    }
-
-    public function setReservationid(?int $reservationid): static
-    {
-        $this->reservationid = $reservationid;
-
-        return $this;
-    }
-
-    public function getPlaces(): ?int
-    {
-        return $this->places;
-    }
-
-    public function setPlaces(?int $places): static
-    {
-        $this->places = $places;
-
-        return $this;
+        return $this->id;
     }
 
     public function getQuantity(): ?int
@@ -61,22 +50,24 @@ class Cart
         return $this->quantity;
     }
 
-    public function setQuantity(?int $quantity): static
+    public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getTimestamp(): ?\DateTimeInterface
+    public function getProductid(): ?Products
     {
-        return $this->timestamp;
+        return $this->productid;
     }
 
-    public function setTimestamp(\DateTimeInterface $timestamp): static
+    public function setProductid(?Products $productid): self
     {
-        $this->timestamp = $timestamp;
+        $this->productid = $productid;
 
         return $this;
     }
+
+
 }

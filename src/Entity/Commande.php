@@ -3,65 +3,175 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * Commande
  *
- * @ORM\Table(name="commande")
- * @ORM\Entity
+ * @ORM\Table(name="commande", indexes={@ORM\Index(name="idcart", columns={"idcart"})})
+ * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
  */
 class Commande
 {
     /**
      * @var int
      *
-     * @ORM\Column(name="idC", type="integer", nullable=false)
+     * @ORM\Column(name="idc", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Groups({"commande"})
      */
     private $idc;
 
-    /**
-     * @var int|null
-     *
-     * @ORM\Column(name="idP", type="integer", nullable=true)
-     */
-    private $idp;
+
 
     /**
-     * @var int|null
+     * @var string
      *
-     * @ORM\Column(name="idU", type="integer", nullable=true)
+     * @ORM\Column(name="nom", type="string", length=225, nullable=false)
+     * @Groups({"commande"})
      */
-    private $idu;
+    private $nom;
 
     /**
-     * @var string|null
+     * @var string
      *
-     * @ORM\Column(name="adresseUser", type="string", length=255, nullable=true)
+     * @ORM\Column(name="prenom", type="string", length=225, nullable=false)
+     * @Groups({"commande"})
      */
-    private $adresseuser;
+    private $prenom;
 
     /**
-     * @var \DateTime|null
+     * @var string
      *
-     * @ORM\Column(name="dateCommande", type="datetime", nullable=true)
+     * @ORM\Column(name="email", type="string", length=225, nullable=false)
+     * @Groups({"commande"})
      */
-    private $datecommande;
+    private $email;
 
     /**
-     * @var \DateTime|null
+     * @var string
      *
-     * @ORM\Column(name="dateLivraison", type="datetime", nullable=true)
+     * @ORM\Column(name="adresseUser", type="string", length=225, nullable=false)
+     * @Groups({"commande"})
      */
-    private $datelivraison;
+    private $adresse;
 
     /**
-     * @var string|null
+     * @var int
      *
-     * @ORM\Column(name="prixTotal", type="decimal", precision=10, scale=2, nullable=true)
+     * @ORM\Column(name="numTelephone", type="integer", nullable=false)
+     * @Groups({"commande"})
      */
-    private $prixtotal;
+    private $numtelephone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dateCommande", type="string", nullable=false)
+     * @Groups({"commande"})
+     */
+    private $date;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="prixTotal", type="integer", nullable=false)
+     * @Groups({"commande"})
+     */
+    private $totalcost;
+
+    public function getidc(): ?int
+    {
+        return $this->idc;
+    }
+
+
+
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getPrenom(): ?string
+    {
+        return $this->prenom;
+    }
+
+    public function setPrenom(string $prenom): self
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getNumtelephone(): ?int
+    {
+        return $this->numtelephone;
+    }
+
+    public function setNumtelephone(int $numtelephone): self
+    {
+        $this->numtelephone = $numtelephone;
+
+        return $this;
+    }
+
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getTotalcost(): ?int
+    {
+        return $this->totalcost;
+    }
+
+    public function setTotalcost(int $totalcost): self
+    {
+        $this->totalcost = $totalcost;
+
+        return $this;
+    }
 
 
 }
