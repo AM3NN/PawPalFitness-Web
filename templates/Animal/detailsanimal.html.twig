@@ -4,24 +4,23 @@
 
 <br><br><br><br>
     <div class="container emp-profile">
-        {{ form_start(form) }}
+        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
 
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-img">
-                    {% if animal.categorie == 'Chien' %}
-                        <img src="{{asset('img/dog.jpg')}}" alt=""/>
-                    {% else %}
-                    <img src="{{asset('img/cat.jpg')}}" alt=""/>
-                    {% endif %}
+                        {% if form.vars.value.idc.nomc == 'Chien' %}
+                            <img src="{{ asset('img/dog.jpg') }}" alt=""/>
+                        {% else %}
+                            <img src="{{ asset('img/cat.jpg') }}" alt=""/>
+                        {% endif %}
                     </div>
                 </div>
 
-
                 <div class="col-md-6">
                     <div class="profile-head">
-                        <h5>{{ animal.nom }}</h5>
-                        <h6>{{ animal.type }}</h6>
+                        <h5>{{ form.vars.value.nom }}</h5>
+                        <h6>{{ form.vars.value.type }}</h6>
 
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
@@ -34,85 +33,92 @@
 
                 <div class="col-md-2">
                     {{ form_widget(form.Edit_Profile, { 'attr': {'class': 'profile-edit-btn'} }) }}
-
                 </div>
-
             </div>
 
             <div class="row">
                 <div class="col-md-4">
                     <div class="profile-work">
                         <p>Recommended Treats</p>
-                        <a href="">Treats1</a><br/>
-                        <a href="">Treats2</a><br/>
+                        <img src="{{ asset('img/carrots.png') }}" alt="" style="width: 30px;height:30px;"/>
+                        <img src="{{ asset('img/parmesan.png') }}" alt="" style="width: 30px;height:30px;"/>
+                        <img src="{{ asset('img/water-melon.png') }}" alt="" style="width: 30px;height:30px;"/><br/>
                         <p>Does</p>
-                        <a href="">DO</a><br/>
-                        <a href="">DO</a><br/>
+                        <img src="{{ asset('img/broccoli.png') }}" alt="" style="width: 30px;height:30px;"/>
+                        <img src="{{ asset('img/meat.png') }}" alt="" style="width: 30px;height:30px;"/><br/>
                         <p>Don'ts</p>
-                        <a href="">Don't</a><br/>
-                        <a href="">Don't</a><br/>
+                        <img src="{{ asset('img/no-chocolate.png') }}" alt="" style="width: 30px;height:30px;"/>
+                        <img src="{{ asset('img/raisins.png') }}" alt="" style="width: 30px;height:30px;"/><br/>
                     </div>
                 </div>
 
                 <div class="col-md-8">
                     <div class="tab-content profile-tab" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Name</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <p>{{ animal.nom }}</p>
-                                    </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Name</label>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Age in years</label>
-                                    </div>
-                                    <div class="col-md-6"> 
-                                    <p>{{ form_widget(form.age, { 'attr': {'class': 'form-control', 'placeholder': animal.age ~ ' Ans', 'style': 'background-color: #CADAE5;'} }) }}</p>
+                                <div class="col-md-6">
+                                    <p>{{ form.vars.value.nom }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Age in years</label>
+                                </div>
+                                <div class="col-md-6"> 
+                                    {{ form_widget(form.age, { 'attr': {'class': 'form-control', 'placeholder': form.vars.value.age ~ ' Ans', 'style': 'background-color: #CADAE5;'} }) }}
                                     {% if form_errors(form.age) is not empty %}
                                     <div class="alert alert-danger">
-                                   {{ form_errors(form.age) }}
-                                   </div>
-                                   {% endif %}
+                                        {{ form_errors(form.age) }}
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                         <label>Weight in KG</label>
-                                    </div>
-                                    <div class="col-md-6">
-                                    <p>{{ form_widget(form.poids, { 'attr': {'class': 'form-control', 'placeholder': animal.poids ~ ' KG', 'style': 'background-color: #CADAE5;'} }) }}</p>
-                                     {% if form_errors(form.poids) is not empty %}
-                                    <div class="alert alert-danger">
-                                   {{ form_errors(form.poids) }}
-                                  </div>
                                     {% endif %}
-                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <label>Details</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Weight in KG</label>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.poids, { 'attr': {'class': 'form-control', 'placeholder': form.vars.value.poids ~ ' KG', 'style': 'background-color: #CADAE5;'} }) }}
+                                    {% if form_errors(form.poids) is not empty %}
+                                    <div class="alert alert-danger">
+                                        {{ form_errors(form.poids) }}
                                     </div>
-                                    <div class="col-md-6">
-                                    <p>{{ form_widget(form.details, { 'attr': {'class': 'form-control', 'placeholder': animal.details, 'style': 'background-color: #CADAE5;'} }) }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Details</label>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_widget(form.details, { 'attr': {'class': 'form-control', 'placeholder': form.vars.value.details, 'style': 'background-color: #CADAE5;'} }) }}
                                     {% if form_errors(form.details) is not empty %}
-                               <div class="alert alert-danger">
-                                {{ form_errors(form.details) }}
-                               </div>
-                                {% endif %}
+                                    <div class="alert alert-danger">
+                                        {{ form_errors(form.details) }}
                                     </div>
+                                    {% endif %}
                                 </div>
+
+                                <div class="col-md-6">
+                                {{ form_label(form.idc, "Categorie") }}
+                                    {{ form_widget(form.idc, {'attr': {'class': 'form-control','disabled': 'disabled'}}) }} 
+                                
+                                </div>
+
+                                <div class="col-md-6">
+                                    {{ form_label(form.idu, "Owner") }}
+                                   {{ form_widget(form.idu, {'attr': {'class': 'form-control','disabled': 'disabled'}}) }} 
+                                </div>
+                            </div>
                         </div>
                     </div>
-                 </div>
-
+                </div>
             </div>
-        {{form_end(form)}}          
+        {{ form_end(form) }}          
     </div>
-
-
 
 <style>
 body{

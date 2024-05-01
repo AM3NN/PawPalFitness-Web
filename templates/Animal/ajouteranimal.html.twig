@@ -84,15 +84,30 @@
                            </div>
 
                            <div class="col-md-12 mt-3">
-                              <div class="row">
-                                 <div class="col-md-2">
-                                   {{ form_label(form.categorie,"Categorie") }}
-                                  </div>
-                                  <div class="col-md-10">
-                                   {{ form_widget(form.categorie) }} 
-                                  </div>
-                                </div>
-                            </div>
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_label(form.idc, "Categorie") }}
+        </div>
+        <div class="col-md-10">
+            {{ form_widget(form.idc, {'attr': {'class': 'form-control'}}) }} 
+        </div>
+    </div>
+</div>
+<div class="col-md-12 mt-3">
+    <div class="row">
+        <div class="col-md-2">
+            {{ form_label(form.idu, "Personne") }}
+        </div>
+        <div class="col-md-10">
+            {{ form_widget(form.idu, {'attr': {'class': 'form-control'}}) }} 
+            {% if form_errors(form.idu) is not empty %}
+                <div class="alert alert-danger">
+                    {{ form_errors(form.idu) }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
 
                             <div class="col-md-12">
                                 {{ form_label(form.details,"Details") }}
@@ -102,6 +117,10 @@
                                 {{ form_errors(form.details) }}
                                </div>
                                 {% endif %}
+                            </div>
+
+                            <div class="col-md-12">
+                            <input type="tel" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="Enter your phone number" value="{{ phoneNumber|default('+216') }}">
                             </div>
 
                             <div class="form-button mt-3">
@@ -116,8 +135,6 @@
     </div>
 
 <style>
-
-
 html, body {
     height: 100%;
 }

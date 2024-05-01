@@ -24,14 +24,59 @@
     <link rel="stylesheet" href="{{asset('css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css">
     {% endblock %}
+    
 
 </head>
 
 <body>
-
 <style>
 .red-heart {
     color: red; 
+}
+.form{
+
+    position: relative;
+}
+
+.form .fa-search{
+
+    position: absolute;
+    top:20px;
+    left: 20px;
+    color: #9ca3af;
+
+}
+
+.form span{
+
+        position: absolute;
+    right: 17px;
+    top: 13px;
+    padding: 2px;
+    border-left: 1px solid #d1d5db;
+
+}
+
+.left-pan{
+    padding-left: 7px;
+}
+
+.left-pan i{
+   
+   padding-left: 10px;
+}
+
+.form-input{
+
+    height: 55px;
+    text-indent: 33px;
+    border-radius: 10px;
+}
+
+.form-input:focus{
+
+    box-shadow: none;
+    border:none;
 }
 </style>
 
@@ -97,10 +142,32 @@
     <!-- Breadcrumb End -->
 
 
-
     <section class="gallery-section spad">
          <div class="container">
-         <a href="{{ path('app_affformajout') }}" class="primary-btn class-btn"  onmouseover="this.style.color='#e16521';" onmouseout="this.style.color='white';">Add Your Pet</a>
+                <div class="container" >
+                {% if app.session.flashbag.has('error') %}
+                            {% set errorMessages = app.session.flashbag.get('error') %}
+                                {% for errorMessage in errorMessages %}
+                                    <div class="alert alert-danger">{{ errorMessage }}</div>
+                                {% endfor %}
+                        {% endif %}
+                    <div class="row height d-flex justify-content-center align-items-center">
+    <div class="col-md-6">
+        <form action="{{ path('animal_search') }}" method="get" class="form">
+    <i class="fa fa-search"></i>
+    <input type="text" name="search_term" id="transcription_result" class="form-control form-input" placeholder="Search Your Pet...">
+    <span>
+        <button type="button" id="startRecordingButton" class="btn"><i class="fa fa-microphone"></i></button>
+    </span>
+    <span>
+        <button type="submit" class="btn" style="margin-right:30px;">Search</button>
+    </span>
+</form>
+ 
+    </div>
+</div>
+                </div>
+         <br><a href="{{ path('app_affformajout') }}" class="primary-btn class-btn"  onmouseover="this.style.color='#e16521';" onmouseout="this.style.color='white';">Add Your Pet</a>
           <div class="row">
               <div class="col-lg-12">
                     <div class="gallery-controls">
@@ -114,41 +181,84 @@
             </div>
             
             <div class="row gallery-filter">
-            {% for a in animal %}
-              {% set isFavorite = false %}
-              {% for a2 in fav %}
-                {% if a.nom == a2.noma %}
-                  {% set isFavorite = true %}
-                {% endif %}
-            {% endfor %}
+    <!-- Display animals with red heart icon first -->
+{% for a in animal %}
+    {% set isFavorite = false %}
+    {% for a2 in fav %}
+        {% if a.nom == a2.noma %}
+            {% set isFavorite = true %}
+        {% endif %}
+    {% endfor %}
+    
+    {% set isCat = false %}
+    {% for category in categories %}
+        {% if a.idc == category %}
+            {% if category.nomc == 'Chat' %}
+                {% set isCat = true %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    
+    {% if isFavorite %}
+        <div class="col-lg-4 col-sm-6 mix {{ isCat ? 'cats' : 'dogs' }}">
+            <div class="gallery-item">
+              <div class="image-container" style="position: relative;">
+              <i class="fa fa-map-pin" style="color:red; position: absolute; top: 5px; left: 20px; font-size: 20px; margin-top: 5px;"></i>
+              <img src="{{ asset(isCat ? 'img/cat.jpg' : 'img/dog.jpg') }}" alt="">
+            </div>
 
-            {% if a.categorie == 'Chat' %}
-               {% set isCat = true %}
-            {% else %}
-               {% set isCat = false %}
-             {% endif %}
-
-              <div class="col-lg-4 col-sm-6 mix {% if isCat %}cats{% else %}dogs{% endif %}">
-                 <div class="gallery-item">
-                     <img src="{{ asset(isCat ? 'img/cat.jpg' : 'img/dog.jpg') }}" alt="">
-                       <div class="gi-hover-warp">
-                         <div class="gi-hover">
-                             <a href="{{ path('app_details', {nom: a.nom}) }}"><i class="fa fa-search-plus"></i></a>
-                             <a href="#"><i class="fa fa-share"></i></a>
-                             <a href="{{ path('animal_del', {nom: a.nom}) }}"><i class="fa fa-close"></i></a>
-                             {% if isFavorite %}
-                             <a href="{{ path('animal_favoris', {nom: a.nom}) }}"><i class="fa fa-heart red-heart"></i></a>
-                             {% else %}
-                             <a href="{{ path('animal_favoris', {nom: a.nom}) }}"><i class="fa fa-heart"></i></a>
-                             {% endif %}
-                             <h6>{{ a.nom }}<span>{{ a.type }}</span></h6>
-                            </div>
-                         </div>
-                       </div>
+                 
+                <div class="gi-hover-warp">
+                    <div class="gi-hover">
+                       
+                        <a href="{{ path('app_details', {nom: a.nom}) }}" ><i class="fa fa-search-plus"></i></a>
+                        <a href="#" class="delete-link" data-nom="{{ a.nom }}" title="Delete"><i class="fa fa-close"></i></a>
+                        <a href="{{ path('animal_favoris', {nom: a.nom}) }}"><i class="fa fa-heart red-heart"></i></a>
+                        <h6>{{ a.nom }}<span>{{ a.type }}</span></h6>
                     </div>
-                {% endfor %}
+                </div>
             </div>
         </div>
+    {% endif %}
+{% endfor %}
+
+<!-- Display all other animals -->
+{% for a in animal %}
+    {% set isFavorite = false %}
+    {% for a2 in fav %}
+        {% if a.nom == a2.noma %}
+            {% set isFavorite = true %}
+        {% endif %}
+    {% endfor %}
+    
+    {% set isCat = false %}
+    {% for category in categories %}
+        {% if a.idc == category %}
+            {% if category.nomc == 'Chat' %}
+                {% set isCat = true %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    
+    {% if not isFavorite %}
+        <div class="col-lg-4 col-sm-6 mix {{ isCat ? 'cats' : 'dogs' }}">
+            <div class="gallery-item">
+                <img src="{{ asset(isCat ? 'img/cat.jpg' : 'img/dog.jpg') }}" alt="">
+                <div class="gi-hover-warp">
+                    <div class="gi-hover">
+                        <a href="{{ path('app_details', {nom: a.nom}) }}" ><i class="fa fa-search-plus"></i></a>
+                        <a href="#" class="delete-link" data-nom="{{ a.nom }}" title="Delete"><i class="fa fa-close"></i></a>
+                        <a href="{{ path('animal_favoris', {nom: a.nom}) }}"><i class="fa fa-heart{{ isFavorite ? ' red-heart' : '' }}"></i></a>
+                        <h6>{{ a.nom }}<span>{{ a.type }}</span></h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+
+</div>
+
     </section>
 
     <!-- Footer Section Begin -->
@@ -230,7 +340,6 @@
         </div>
     </footer>
     <!-- Footer Section End -->
-
     {% block javascripts %} 
     <!-- Js Plugins -->
     <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
@@ -242,6 +351,115 @@
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/masonry.pkgd.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    let recorder; // Define recorder variable outside the function to access it from different functions
+    let audioChunks = []; // Store audio chunks
+
+    async function startRecording(stream) {
+        try {
+            const options = {
+                mimeType: 'audio/webm',
+                audioBitsPerSecond: 128000
+            };
+
+            recorder = new MediaRecorder(stream, options); // Assign recorder to the global variable
+
+            recorder.ondataavailable = event => {
+                audioChunks.push(event.data); // Push audio data to the chunks array
+            };
+
+            recorder.onstop = async () => {
+                console.log('Recording stopped.');
+
+                const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+
+                const formData = new FormData();
+                formData.append('audio', audioBlob);
+
+                try {
+                    const response = await fetch('http://localhost:8080/transcriber.php', { // Replace 'yourdomain.com' with your actual domain
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    const transcription = await response.text();
+                    console.log('Transcription:', transcription);
+
+                    // Handle the transcription result here
+                    document.getElementById('transcription_result').textContent = transcription;
+
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            };
+
+            recorder.start();
+            console.log('Recording...');
+        } catch (error) {
+            console.error('Error starting recording:', error);
+        }
+    }
+
+    // Function to stop recording
+    function stopRecording() {
+        if (recorder && recorder.state !== 'inactive') {
+            recorder.stop();
+        }
+    }
+
+    // Event listener for the stop button
+    document.getElementById('stopRecordingButton').addEventListener('click', stopRecording);
+
+    // Event listener for the start button
+    document.getElementById('startRecordingButton').addEventListener('click', async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            startRecording(stream);
+        } catch (error) {
+            console.error('Error accessing microphone:', error);
+        }
+    });
+});
+
+
+    </script>
+
+
+    <script>
+        $(document).ready(function() {
+            // Function to open the pop-up
+            $('.delete-link').click(function() {
+                $('#categoryPopup').fadeIn();
+            });
+
+            // Function to close the pop-up
+            $('#categoryPopup').on('click', function(event) {
+                if ($(event.target).is('#categoryPopup')) {
+                    $(this).fadeOut();
+                }
+            });
+
+            // Function to show delete confirmation popup
+            function showDeleteConfirmation(nom) {
+                var confirmation = confirm("Are you sure you want to delete your pet '" + nom + "'?");
+                if (confirmation) {
+                    // Perform delete action
+                    window.location.href = "{{ path('animal_del', {'nom': '___'}) }}".replace('___', nom);
+                }
+            }
+
+            // Event listener for delete link clicks
+            $(document).on('click', '.delete-link', function(event) {
+                event.preventDefault(); // Prevent the default link behavior
+                var nom = $(this).data('nom');
+                showDeleteConfirmation(nom); // Call the function to show the confirmation popup
+            });
+        });
+</script>
+
     {% endblock %}
 </body>
 

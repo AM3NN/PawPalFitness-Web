@@ -21,6 +21,37 @@ class AnimalRepository extends ServiceEntityRepository
         parent::__construct($registry, Animal::class);
     }
 
+    public function countAnimalsByCategoryId($categoryId)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a.ida)')
+            ->andWhere('a.idc = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function countAnimalsByCategories()
+{
+    return $this->createQueryBuilder('a')
+        ->select('COUNT(a.ida) as count', 'c.nomc as categoryName')
+        ->leftJoin('a.idc', 'c')
+        ->groupBy('a.idc')
+        ->getQuery()
+        ->getResult();
+}
+
+
+    public function searchByName(string $searchTerm): ?Animal
+    {
+    return $this->createQueryBuilder('a')
+        ->andWhere('a.nom = :searchTerm')
+        ->setParameter('searchTerm', $searchTerm)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
+
     //    /**
     //     * @return Animal[] Returns an array of Animal objects
     //     */

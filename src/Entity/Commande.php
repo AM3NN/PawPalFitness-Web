@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,83 +62,6 @@ class Commande
      * @ORM\Column(name="prixTotal", type="decimal", precision=10, scale=2, nullable=true)
      */
     private $prixtotal;
-
-    public function getIdc(): ?int
-    {
-        return $this->idc;
-    }
-
-    public function getIdp(): ?int
-    {
-        return $this->idp;
-    }
-
-    public function setIdp(?int $idp): static
-    {
-        $this->idp = $idp;
-
-        return $this;
-    }
-
-    public function getIdu(): ?int
-    {
-        return $this->idu;
-    }
-
-    public function setIdu(?int $idu): static
-    {
-        $this->idu = $idu;
-
-        return $this;
-    }
-
-    public function getAdresseuser(): ?string
-    {
-        return $this->adresseuser;
-    }
-
-    public function setAdresseuser(?string $adresseuser): static
-    {
-        $this->adresseuser = $adresseuser;
-
-        return $this;
-    }
-
-    public function getDatecommande(): ?\DateTimeInterface
-    {
-        return $this->datecommande;
-    }
-
-    public function setDatecommande(?\DateTimeInterface $datecommande): static
-    {
-        $this->datecommande = $datecommande;
-
-        return $this;
-    }
-
-    public function getDatelivraison(): ?\DateTimeInterface
-    {
-        return $this->datelivraison;
-    }
-
-    public function setDatelivraison(?\DateTimeInterface $datelivraison): static
-    {
-        $this->datelivraison = $datelivraison;
-
-        return $this;
-    }
-
-    public function getPrixtotal(): ?string
-    {
-        return $this->prixtotal;
-    }
-
-    public function setPrixtotal(?string $prixtotal): static
-    {
-        $this->prixtotal = $prixtotal;
-
-        return $this;
-    }
 
 
 }

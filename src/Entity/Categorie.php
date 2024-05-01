@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategorieRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass:CategorieRepository::class)]
@@ -14,42 +15,25 @@ class Categorie
     #[ORM\Column]
     private ?int $idc=null;
 
-    #[ORM\ManyToOne(targetEntity: Animal::class)]
-    #[ORM\JoinColumn(name: "IDA", referencedColumnName: "ida")]
-    private Animal $ida;
-
-    #[ORM\ManyToOne(targetEntity: Personne::class)]
-    #[ORM\JoinColumn(name: "IDU", referencedColumnName: "id")]
-    private Personne $idu;
+    #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: "Vous devez mettre le nom de votre animal!!!")]
+    private ?string $nomc=null;
 
     public function getIdc(): ?int
     {
         return $this->idc;
     }
 
-    public function getIda(): ?Animal
+    public function getNomc(): ?string
     {
-        return $this->ida;
+        return $this->nomc;
     }
 
-    public function setIda(?Animal $ida): static
+    public function setNomc(string $nomc): static
     {
-        $this->ida = $ida;
+        $this->nomc = $nomc;
 
         return $this;
     }
-
-    public function getIdu(): ?Personne
-    {
-        return $this->idu;
-    }
-
-    public function setIdu(?Personne $idu): static
-    {
-        $this->idu = $idu;
-
-        return $this;
-    }
-
 
 }

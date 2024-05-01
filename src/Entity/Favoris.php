@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -20,7 +19,7 @@ class Favoris
     #[ORM\JoinColumn(name: "IDA", referencedColumnName: "ida")]
     private Animal $ida;
 
-    public function getIdf(): ?string
+    public function getIdf(): ?int
     {
         return $this->idf;
     }
@@ -48,6 +47,5 @@ class Favoris
 
         return $this;
     }
-
 
 }
