@@ -6,3 +6,7 @@ controllers:
 login_page:
     path: /login
     controller: App\Controller\LoginController::loginPage
+app_google_auth_check:
+    path: /connect/google/check
+    controller: App\Controller\AuthController::googleAuthCheck
+

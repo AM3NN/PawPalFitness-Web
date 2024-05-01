@@ -1,0 +1,60 @@
+{# templates/dashboard/index.html.twig #}
+
+{% extends 'baseback.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .dashboard-container {
+            margin-right: 100px; /* Adjust the margin-right value as needed */
+        }
+
+        .circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: lightblue;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Add additional styles as needed */
+        .user-circle {
+            background-color: lightgreen;
+        }
+
+        .worker-circle {
+            background-color: lightcoral;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the Dashboard</h1>
+
+    <div class="container dashboard-container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Users</h5>
+                        <div class="circle user-circle">{{ user_count }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Workers</h5>
+                        <div class="circle worker-circle">{{ worker_count }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

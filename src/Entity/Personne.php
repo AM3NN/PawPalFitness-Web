@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PersonneRepository;
+use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
+
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
 class Personne 
 {
@@ -12,6 +14,10 @@ class Personne
     #[ORM\GeneratedValue]
     #[ORM\Column(name: "id", type: "integer")]
     private ?int $id = null;
+
+    #[ORM\Column(type:"integer")]
+ 
+private $failedLoginAttempts = 0;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Nom est obligatoire")]
@@ -64,6 +70,20 @@ class Personne
         $this->nom = $nom;
         return $this;
     }
+    public function getFailedLoginAttempts(): int
+    {
+        return $this->failedLoginAttempts;
+    }
+
+    public function incrementFailedLoginAttempts(): void
+    {
+        $this->failedLoginAttempts++;
+    }
+
+    public function resetFailedLoginAttempts(): void
+    {
+        $this->failedLoginAttempts = 0;
+    }
     public function getIsBanned(): bool
     {
         return $this->isBanned;
@@ -84,7 +104,7 @@ class Personne
         $this->prenom = $prenom;
         return $this;
     }
-
+   
     public function getRegion(): ?string
     {
         return $this->region;

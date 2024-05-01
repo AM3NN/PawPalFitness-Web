@@ -18,7 +18,6 @@ class SignuppController extends AbstractController
         dump($personneForm);
         dump($travailleurForm);
 
-        // Define errorMessage variable with an empty string by default
         $errorMessage = '';
 
         return $this->render('signupp/index.html.twig', [

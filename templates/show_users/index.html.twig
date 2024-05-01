@@ -57,6 +57,10 @@
         display: block; /* Display the button as a block-level element */
         margin: 10px auto; /* Center-align the button horizontally with some margin */
     }
+     #exportCsvButton {
+        display: block;
+        margin: 15px auto; 
+    }
 </style>
 
 <h1 style="text-align: center;">All Users</h1>
@@ -67,6 +71,8 @@
 </form>
 
 <button id="sortByAgeButton" onclick="sortByAge()">Sort by Age</button> <!-- Button for sorting by age -->
+<button id="exportCsvButton" onclick="exportUsersCsv()">Export Users to CSV</button>
+
 
 <table>
     <thead>
@@ -104,6 +110,10 @@
 
 <!-- JavaScript function to handle delete operation -->
 <script>
+  function exportUsersCsv() {
+        // Redirect to the export users CSV route
+        window.location.href = '{{ path('export_users_csv') }}';
+    }
     function deleteUser(userId) {
         if (confirm("Are you sure you want to delete this user?")) {
             // Make an AJAX request to delete the user

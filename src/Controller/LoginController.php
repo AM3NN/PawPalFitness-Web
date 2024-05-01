@@ -1,5 +1,7 @@
 <?php
 
+// LoginController.php
+
 namespace App\Controller;
 
 use App\Entity\Personne;
@@ -10,14 +12,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 
 class LoginController extends AbstractController
 {
     private $entityManager;
+    private $notifier;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, NotifierInterface $notifier)
     {
         $this->entityManager = $entityManager;
+        $this->notifier = $notifier;
     }
 
     #[Route('/login', name: 'app_login', methods: ['POST'])]
@@ -64,9 +70,25 @@ class LoginController extends AbstractController
 
         // Validate password
         if (!$user || !hash_equals($user->getPassword(), hash('sha256', $password))) {
+            // Increment the failed login attempts count
+            $user->incrementFailedLoginAttempts();
+            $this->entityManager->flush();
+
             $this->addFlash('error', 'Invalid email or password. Please try again.');
+
+            // Check if failed attempts count is 3 and trigger notification
+            if ($user->getFailedLoginAttempts() === 3) {
+                $notification = new Notification('Three failed login attempts', ['desktop']);
+                $this->notifier->send($notification);
+            }
+
+            // Redirect to the login page
             return $this->redirectToRoute('login_page');
         }
+
+        // Reset the failed login attempts count upon successful login
+        $user->resetFailedLoginAttempts();
+        $this->entityManager->flush();
 
         // Redirect to the appropriate dashboard
         if ($email === 'amenallah.laouini@esprit.tn' && $password === '1234') {
@@ -74,7 +96,6 @@ class LoginController extends AbstractController
         } else {
             // Redirect to the appropriate dashboard
             return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
-        }    }
+        }
+    }
 }
-
-

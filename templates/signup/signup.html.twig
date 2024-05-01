@@ -69,6 +69,10 @@
                     </div>
                     <button type="submit" class="btn btn-primary">Sign Up</button>
                     {{ form_end(form) }}
+                     <!-- Sign in with GitHub button -->
+                <div class="github-login-button">
+                    <a href="{{ path('app_github_auth_check') }}" class="btn btn-github">Sign in with GitHub</a>
+                </div>
                     <div class="already-account">
                         <p>Already have an account? <a href="{{ path('app_login') }}">Log in here</a></p>
                     </div>
