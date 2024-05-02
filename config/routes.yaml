@@ -13,3 +13,8 @@ app_edit:
     path: '/edit'
     controller: 'App\Controller\ReservationBack\ResBackController::edit'
     methods: ['GET', 'POST']
+
+send_message:
+    path: /send-message
+    controller: App\Controller\ChatController::sendPrompt
+    methods: [POST]

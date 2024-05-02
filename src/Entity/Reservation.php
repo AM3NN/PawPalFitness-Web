@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ReservationRepository;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass:ReservationRepository::class)]
 class Reservation
@@ -11,31 +12,39 @@ class Reservation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $reservationid=null;
+    private ?int $reservationid = null;
 
     #[ORM\Column]
-    private ?int $places=null;
+    #[Assert\NotBlank(message: "You must provide the number of places")]
+    private ?int $places = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $category=null;
+    #[Assert\NotBlank(message: "You must provide the category")]
+    private ?string $category = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $date=null;
+    #[Assert\NotBlank(message: "You must provide the date")]
+    private ?string $date = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $starttime=null;
+    #[Assert\NotBlank(message: "You must provide the start time")]
+    private ?string $starttime = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $endtime=null;
+    #[Assert\NotBlank(message: "You must provide the end time")]
+    private ?string $endtime = null;
 
     #[ORM\Column(length: 20)]
-    private ?string $status=null;
+    #[Assert\NotBlank(message: "You must provide the status")]
+    private ?string $status = null;
 
     #[ORM\Column]
-    private ?int $duration=null;
+    #[Assert\NotBlank(message: "You must provide the duration")]
+    private ?int $duration = null;
 
     #[ORM\Column]
-    private ?int $pricing=null;
+    #[Assert\NotBlank(message: "You must provide the pricing")]
+    private ?int $pricing = null;
 
       public function getReservationId(): ?int
       {

@@ -3,13 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Activitar Template">
-    <meta name="keywords" content="Activitar, unica, creative, html">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{% block title %} PAWPAL Fitness {% endblock %} </title>
-
-    {% block stylesheets %}
+    <title>{% block title %} PAWPAL Fitness {% endblock %}</title>
+    
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Oswald:300,400,500,600,700&display=swap" rel="stylesheet">
@@ -23,22 +20,94 @@
     <link rel="stylesheet" href="{{asset('css/magnific-popup.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css">
-    {% endblock %}
+    
+    <!-- Custom styles for chatbot -->
+    <style>
+        /* Chatbot icon styles */
+        #chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Chat window styles */
+        #chat-window {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: white;
+            border: 1px solid gray;
+            display: none; /* Initially hidden */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000; /* Ensure the chat window appears above other elements */
+        }
+
+        /* Chat window header */
+        #chat-header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-bottom: 1px solid gray;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Chat content styles */
+        #chat-content {
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        /* Chat input styles */
+        #chat-input {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+        }
+
+        /* Input field */
+        #chat-input input {
+            flex-grow: 1;
+            padding: 5px;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        /* Send button */
+        #chat-input button {
+            padding: 5px 10px;
+            margin-left: 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 
 </head>
 
 <body>
-
-    <!-- Page Preloder -->
+    <!-- Page Preloader -->
     <div id="preloder">
         <div class="loader"></div>
     </div>
 
-    <!-- Header Section Begin -->
-    <header class="header-section" style="background-color: #151515;height:90px;">
-        <div class="container-fluid" >
-            <div class="logo" >
-                <a href="">
+    <!-- Header Section -->
+    <header class="header-section" style="background-color: #151515; height:90px;">
+        <div class="container-fluid">
+            <div class="logo">
+                <a href="#">
                     <img src="{{asset('img/logoppf.png')}}" alt="PPF" style="height:50px;">
                 </a>
             </div>
@@ -53,14 +122,14 @@
                     <nav class="mainmenu mobile-menu">
                         <ul>
                             <li><a href="/Welcome">Home</a></li>
-                            <li><a href="">Gyms</a></li>
-                            <li><a href="">Trainers</a></li>
-                            <li><a href="">Products</a></li>
+                            <li><a href="#">Gyms</a></li>
+                            <li><a href="#">Trainers</a></li>
+                            <li><a href="#">Products</a></li>
                             <li><a href="/planning">Planning</a></li>
-                            <li><a href="">About us</a>
+                            <li><a href="#">About us</a>
                                 <ul class="dropdown">
-                                    <li><a href="">About Us</a></li>
-                                    <li><a href="">Our Team</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Our Team</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -70,25 +139,34 @@
             <div id="mobile-menu-wrap"></div>
         </div>
     </header>
-    <!-- Header End -->
 
- <!-- Hero Section Begin -->
+    <!-- Hero Section -->
     <section class="hero-section">
-    {% block body %}
+        {% block body %}
         <div class="hero-items owl-carousel">
-            
+            <div class="single-hero-item set-bg" data-setbg="{{asset('img/hero-slider/hero-2.jpg')}}">
+                <h1></h1>
             </div>
-            <div class="single-hero-item set-bg" data-setbg="img/hero-slider/hero-2.jpg">
-              <h1></h1>  
-            </div>
-            
         </div>
-    {% endblock %}
+        {% endblock %}
     </section>
-    <!-- Hero End -->
 
+    <!-- Chatbot Icon -->
+    <img src="{{asset('img/robot.png')}}" alt="Chatbot" id="chatbot-icon">
 
-    <!-- Footer Section Begin -->
+    <!-- Chat Window -->
+    <div id="chat-window">
+        <div id="chat-header">Feel free to ask!</div>
+        <div id="chat-content">
+            <!-- Chat content goes here -->
+        </div>
+        <div id="chat-input">
+            <input type="text" id="chat-message" placeholder="Type your message here...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
     <footer class="footer-section">
         <div class="container">
             <div class="row">
@@ -112,7 +190,7 @@
                         <h5>About Us</h5>
                         <div class="footer-blog">
                             <a href="#" class="fb-item">
-                                <h6>our team</h6>
+                                <h6>Our Team</h6>
                             </a>
                         </div>
                     </div>
@@ -123,8 +201,8 @@
                         <ul class="workout-program">
                             <li><a href="#">Bodybuilding</a></li>
                             <li><a href="#">Running</a></li>
-                            <li><a href="#">Streching</a></li>
-                            <li><a href="#">Weight Loss</a></li>
+                            <li><a href="#">Stretching</a></li>
+                            <li><a href="#">Weight Loss</li>
                             <li><a href="#">Gym Fitness</a></li>
                         </ul>
                     </div>
@@ -145,7 +223,7 @@
                             </li>
                             <li>
                                 <i class="fa fa-map-marker"></i>
-                                <span>Address</span>
+                                <span>Address:</span>
                                 Technological Pole, 2 André Ampère Street, Ariana 2083, Tunisia
                             </li>
                         </ul>
@@ -158,27 +236,115 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <div class="ct-inside">
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by Fantastic five and inspired of <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --> </div>
+                            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by Fantastic Five and inspired by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <!-- Footer Section End -->
 
-    {% block javascripts %} 
-    <!-- Js Plugins -->
-    <script src="{{asset('js/jquery-3.3.1.min.js')}}"></script>
-    <script src="{{asset('js/bootstrap.min.js')}}"></script>
-    <script src="{{asset('js/jquery.magnific-popup.min.js')}}"></script>
-    <script src="{{asset('js/mixitup.min.js')}}"></script>
-    <script src="{{asset('js/jquery.nice-select.min.js')}}"></script>
-    <script src="{{asset('js/jquery.slicknav.js')}}"></script>
-    <script src="{{asset('js/owl.carousel.min.js')}}"></script>
-    <script src="{{asset('js/masonry.pkgd.min.js')}}"></script>
-    <script src="{{asset('js/main.js')}}"></script>
+    <!-- JavaScript -->
+    {% block javascripts %}
+    <script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.magnific-popup.min.js') }}"></script>
+    <script src="{{ asset('js/mixitup.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.nice-select.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.slicknav.js') }}"></script>
+    <script src="{{ asset('js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('js/masonry.pkgd.min.js') }}"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    
+    <!-- Chatbot JavaScript -->
+    <script>
+        // Get references to chatbot icon and chat window
+        const chatbotIcon = document.getElementById('chatbot-icon');
+        const chatWindow = document.getElementById('chat-window');
+        const sendButton = document.getElementById('send-button');
+        const chatMessage = document.getElementById('chat-message');
+        const chatContent = document.getElementById('chat-content');
+
+        // Event listener for chatbot icon click
+        chatbotIcon.addEventListener('click', () => {
+            // Toggle chat window visibility
+            if (chatWindow.style.display === 'none' || chatWindow.style.display === '') {
+                chatWindow.style.display = 'block';
+            } else {
+                chatWindow.style.display = 'none';
+            }
+        });
+
+        const sendMessage = () => {
+    const message = chatMessage.value.trim();
+
+    if (message !== '') {
+        // Add user message to chat content
+        const userMessageElement = document.createElement('p');
+        userMessageElement.textContent = 'You: ' + message;
+        chatContent.appendChild(userMessageElement);
+
+        // Clear the input field
+        chatMessage.value = '';
+
+        // Scroll to the bottom of chat content
+        chatContent.scrollTop = chatContent.scrollHeight;
+
+        // Send an AJAX POST request to the server
+        fetch('/send-message', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `prompt=${encodeURIComponent(message)}`
+        })
+        .then(response => {
+            console.log('Response status:', response.status);
+            if (response.ok) {
+                return response.json();
+            } else {
+                console.error('Server error:', response.statusText);
+                throw new Error(`Server error: ${response.statusText}`);
+            }
+        })
+        .then(data => {
+            console.log('Response data:', data);
+            // Display the ChatGPT response in the chat content
+            const responseElement = document.createElement('p');
+            responseElement.textContent = 'PawBot: ' + data.response;
+            chatContent.appendChild(responseElement);
+
+            // Scroll to the bottom of chat content
+            chatContent.scrollTop = chatContent.scrollHeight;
+        })
+        .catch(error => {
+            console.error('Fetch error:', error);
+        });
+    }
+};
+
+
+// Event listener for the send button
+sendButton.addEventListener('click', sendMessage);
+
+// Event listener for pressing the Enter key in the input field
+chatMessage.addEventListener('keyup', (e) => {
+    if (e.key === 'Enter') {
+        sendMessage();
+    }
+});
+
+
+        // Event listener for the send button
+        sendButton.addEventListener('click', sendMessage);
+
+        // Event listener for pressing the Enter key in the input field
+        chatMessage.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
     {% endblock %}
 </body>
 
