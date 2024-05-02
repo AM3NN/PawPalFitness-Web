@@ -172,7 +172,7 @@ public function generatePdf(ReservationRepository $reservationRepository): Respo
     // Render the PDF
     $dompdf->render();
 
-    // Output the generated PDF (1 = download and 0 = preview)
+    // Output the generated PDF 
     return new Response($dompdf->stream('reservations.pdf', ['Attachment' => 0]), 200, [
         'Content-Type' => 'application/pdf',
     ]);
