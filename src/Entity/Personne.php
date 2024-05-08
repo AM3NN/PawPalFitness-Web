@@ -16,8 +16,7 @@ class Personne
     private ?int $id = null;
 
     #[ORM\Column(type:"integer")]
- 
-private $failedLoginAttempts = 0;
+    private $failedLoginAttempts = 0;
 
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Nom est obligatoire")]

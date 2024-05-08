@@ -26,7 +26,6 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css">
 
     {% endblock %}
-
 <style>
         /* Chatbot icon styles */
         #chatbot-icon {
@@ -99,6 +98,8 @@
             cursor: pointer;
         }
     </style>
+
+
 </head>
 
 <body>
@@ -124,15 +125,15 @@
                 <div class="nav-menu">
                     <nav class="mainmenu mobile-menu">
                         <ul>
-                            <li><a href="">Home</a></li>
-                            <li><a href="">Gyms</a></li>
-                            <li><a href="">Trainers</a></li>
-                            <li><a href="">Animals</a></li>
-                            <li><a href="">Products</a></li>
-                            <li><a href="">About us</a>
+                            <li><a href="/Welcome">Home</a></li>
+                            <li><a href="#">Gyms</a></li>
+                            <li><a href="#">Trainers</a></li>
+                            <li><a href="#">Products</a></li>
+                            <li><a href="/planning">Planning</a></li>
+                            <li><a href="#">About us</a>
                                 <ul class="dropdown">
-                                    <li><a href="">About Us</a></li>
-                                    <li><a href="">Our Team</a></li>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Our Team</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -158,6 +159,8 @@
     {% endblock %}
     </section>
     <!-- Hero End -->
+ <!-- Chatbot Icon -->
+    <img src="{{asset('img/robot.png')}}" alt="Chatbot" id="chatbot-icon">
 
 
     <!-- Footer Section Begin -->

@@ -39,8 +39,8 @@ class LoginController extends AbstractController
         $httpClient = HttpClient::create();
         $response = $httpClient->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
             'body' => [
-                'secret' => $recaptchaSecret,
-                'response' => $recaptchaResponse,
+               'secret' => $recaptchaSecret,
+               'response' => $recaptchaResponse,
                 'remoteip' => $remoteIp,
             ],
         ]);
