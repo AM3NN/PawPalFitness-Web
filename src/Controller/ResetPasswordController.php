@@ -46,12 +46,9 @@ class ResetPasswordController extends AbstractController
                 return $this->redirectToRoute('app_reset_password', ['email' => $email]);
             }
 
-            // Set the new hashed password directly (assuming you have a setPassword method in Personne entity)
             $user->setPassword($newPassword);
 
             $this->entityManager->flush();
-
-            // Redirect with success message
             $this->addFlash('success', 'Password reset successfully');
             return $this->redirectToRoute('app_login');
         }

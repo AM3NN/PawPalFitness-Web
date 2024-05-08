@@ -45,6 +45,8 @@
                 <a href="#"><i class="fa fa-youtube-play"></i></a>
                 <a href="#"><i class="fa fa-instagram"></i></a>
 <a href="#" id="showProfile" data-user-id="{{ user.id }}"><i class="fa fa-facebook"></i> Show Profile</a>
+<a href="{{ path('app_login') }}"><i class="fa fa-sign-out"></i> Logout</a>
+
 
 <div id="profileSection" style="display: none;">
   <section class="vh-100 d-flex align-items-center justify-content-center" style="background-color: #eee;">
@@ -64,6 +66,10 @@
               <button type="button" class="btn btn-secondary btn-rounded btn-lg mt-3" onclick="window.location.href='{{ path('app_update_password', {'id': user.id}) }}'">
                 Update Password
               </button>
+         <form method="POST" action="{{ path('app_delete_account', {'id': user.id}) }}" onsubmit="return confirm('Are you sure you want to delete your account?');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">
+    <button type="submit" class="btn btn-danger">Delete Account</button>
+</form>
             </div>
           </div>
         </div>
@@ -79,7 +85,15 @@
     var profileSection = document.getElementById('profileSection');
     profileSection.style.display = profileSection.style.display === 'none' ? 'block' : 'none';
   });
+
+  function confirmDelete() {
+    if (confirm('Are you sure you want to delete your account?')) {
+      // Redirect to the delete account route
+      window.location.href = '{{ path('app_delete_account', {'id': user.id}) }}';
+    }
+  }
 </script>
+
 
 
 

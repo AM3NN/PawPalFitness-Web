@@ -1,5 +1,7 @@
 <?php
 
+// LoginController.php
+
 namespace App\Controller;
 
 use App\Entity\Personne;
@@ -10,14 +12,18 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Component\Notifier\Notification\Notification;
+use Symfony\Component\Notifier\NotifierInterface;
 
 class LoginController extends AbstractController
 {
     private $entityManager;
+    private $notifier;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, NotifierInterface $notifier)
     {
         $this->entityManager = $entityManager;
+        $this->notifier = $notifier;
     }
 
     #[Route('/login', name: 'app_login', methods: ['POST'])]
@@ -27,7 +33,8 @@ class LoginController extends AbstractController
         $password = $request->request->get('password');
         $recaptchaResponse = $request->request->get('g-recaptcha-response');
         $remoteIp = $request->getClientIp();
-        $recaptchaSecret = '6LcO9sQpAAAAAK3MejHv2zTxmeHFj6nFMEwdH5b3'; // Secret key of your reCAPTCH
+        $recaptchaSecret = '6LcO9sQpAAAAAK3MejHv2zTxmeHFj6nFMEwdH5b3'; // Secret key of your reCAPTCHA
+
         // Validate reCAPTCHA
         $httpClient = HttpClient::create();
         $response = $httpClient->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
@@ -40,15 +47,13 @@ class LoginController extends AbstractController
 
         $responseData = $response->toArray();
 
-        // Dump response data for debugging
-
+        // Check if reCAPTCHA validation succeeded
         if (!$responseData['success']) {
             $this->addFlash('error', 'reCAPTCHA validation failed. Please try again.');
             return $this->redirectToRoute('login_page');
         }
 
-        
-
+        // Check if email and password are provided
         if (empty($email) || empty($password)) {
             $this->addFlash('error', 'Please enter both email and password.');
             return $this->redirectToRoute('login_page');
@@ -57,19 +62,25 @@ class LoginController extends AbstractController
         // Check if the user is a Personne
         $user = $personneRepository->findOneBy(['email' => $email]);
 
-
-        if (!$user) {
-            $this->addFlash('error', 'Invalid email or password. Please try again.');
+        // Check if the user is banned
+        if ($user && $user->getIsBanned()) {
+            $this->addFlash('error', 'You are banned. Please contact support for assistance.');
             return $this->redirectToRoute('login_page');
         }
 
         // Validate password
-        if (!hash_equals($user->getPassword(), hash('sha256', $password))) {
+        if (!$user || !hash_equals($user->getPassword(), hash('sha256', $password))) {
+
             $this->addFlash('error', 'Invalid email or password. Please try again.');
+     // Redirect to the login page
             return $this->redirectToRoute('login_page');
         }
 
+        // Reset the failed login attempts count upon successful login
+        $user->resetFailedLoginAttempts();
+        $this->entityManager->flush();
 
+        // Redirect to the appropriate dashboard
         if ($email === 'amenallah.laouini@esprit.tn' && $password === '1234') {
             return $this->redirectToRoute('app_test');
         } else {
@@ -77,5 +88,4 @@ class LoginController extends AbstractController
             return $this->redirectToRoute('app_profile', ['id' => $user->getId()]);
         }
     }
-    
 }

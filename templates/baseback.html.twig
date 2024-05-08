@@ -203,7 +203,7 @@
                             </a>
                             <ul class="dropdown-menu profile animated fadeIn">
                                 <li class="last dropdown-item">
-                                    <a href="ui-login.html">
+                                    <a href="{{ path('app_login') }}">
                                         <i class="fa fa-lock"></i>
                                         Logout
                                     </a>
@@ -259,12 +259,25 @@
 
 
                         <li class="open"> 
-                            <a href="index-hospital.html">
+                            <a href="/dashboard">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
+                         <li class=""> 
+                            <a href="javascript:;">
+                                <i class="fa fa-user-md"></i>
+                                <span class="title">Users</span>
+                                <span class="arrow "></span>
+                            </a>
 
+                            <ul class="sub-menu" >
+                                <li>
+                                    <a class="" href="/show/users" >All Users</a>
+                                </li>
+                            </ul>
+                            
+                        </li>
                         <li class=""> 
                             <a href="javascript:;">
                                 <i class="fa fa-user-md"></i>
@@ -281,20 +294,7 @@
 
                         </li>
 
-                        <li class=""> 
-                            <a href="javascript:;">
-                                <i class="fa fa-user-md"></i>
-                                <span class="title">Users</span>
-                                <span class="arrow "></span>
-                            </a>
-
-                            <ul class="sub-menu" >
-                                <li>
-                                    <a class="" href="/show/users" >All Users</a>
-                                </li>
-                            </ul>
-                            
-                        </li>
+                    
 
                         <li class=""> 
                             <a href="javascript:;">
@@ -369,8 +369,8 @@
 
                     <div class="block1">
                         <div class="data">
-                            <span class='title'>Workers</span>
-                            <span class='total'>a3mel count</span>
+                            <span class='title'></span>
+                            <span class='total'></span>
                         </div>
                         <div class="graph">
                             <span class="sidebar_orders">...</span>
@@ -379,8 +379,8 @@
 
                     <div class="block2">
                         <div class="data">
-                            <span class='title'>Users&nbsp;</span>
-                            <span class='total'>a3mel count</span>
+                            <span class='title'>&nbsp;</span>
+                            <span class='total'></span>
                         </div>
                         <div class="graph">
                             <span class="sidebar_visitors">...</span>
