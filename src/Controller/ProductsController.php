@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductsController extends AbstractController
 {
     /**
-     * @Route("/", name="products_index")
+     * @Route("/en", name="products_index")
      */
     public function index(ProductsRepository $productsRepository)
     {
