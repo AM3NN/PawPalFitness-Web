@@ -8,7 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "*",
-        "doctrine/dbal": "^3",
+        "doctrine/dbal": "*",
         "doctrine/doctrine-bundle": "^2.12",
         "doctrine/doctrine-migrations-bundle": "^3.3",
         "doctrine/orm": "^2.15",
@@ -20,6 +20,7 @@
         "league/oauth2-google": "^4.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.27",
+
         "scheb/2fa-bundle": "*",
         "scheb/2fa-google-authenticator": "^6.12",
         "stripe/stripe-php": "^14.5",
@@ -59,6 +60,7 @@
         "twig/twig": "^2.12|^3.0",
         "twilio/sdk": "^8.0"
     },
+    
     "config": {
         "allow-plugins": {
             "php-http/discovery": true,
@@ -118,4 +120,5 @@
         "symfony/stopwatch": "6.4.*",
         "symfony/web-profiler-bundle": "6.4.*"
     }
+    
 }

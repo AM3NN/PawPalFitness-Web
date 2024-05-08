@@ -31,4 +31,5 @@ class PagevitrineController extends AbstractController
         return $this->render('reservation/reservation.html.twig');
     }
     
+
 }

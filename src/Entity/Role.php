@@ -10,6 +10,7 @@ class Role
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
+
     #[ORM\Column(name: "role_id")]
     private ?int $roleId=null;
 

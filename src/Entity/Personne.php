@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PersonneRepository;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
@@ -64,6 +65,7 @@ class Personne
         return $this->nom;
     }
 
+
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
@@ -98,6 +100,7 @@ class Personne
         return $this->prenom;
     }
 
+
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
@@ -108,6 +111,7 @@ class Personne
     {
         return $this->region;
     }
+
     public function checkPassword(string $plainPassword): bool
     {
         // Hash the plain password using the same algorithm and compare it with the stored hashed password
@@ -124,6 +128,7 @@ class Personne
         return $this->email;
     }
 
+
     public function setEmail(string $email): self
     {
         $this->email = $email;
@@ -134,6 +139,7 @@ class Personne
     {
         return $this->password;
     }
+
 
     public function setPassword(string $password): self
     {
@@ -146,6 +152,7 @@ class Personne
         return $this->age;
     }
 
+
     public function setAge(int $age): self
     {
         $this->age = $age;
@@ -157,12 +164,11 @@ class Personne
         return $this->role;
     }
 
+
     public function setRole(?Role $role): self
     {
         $this->role = $role;
         return $this;
     }
-
-
  
 }

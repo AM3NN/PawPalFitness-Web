@@ -39,6 +39,7 @@
         <!-- CORE CSS TEMPLATE - START -->
         <link href="{{asset('TEMPLATEBACK/assets/css/style.css')}}" rel="stylesheet" type="text/css"/>
         <link href="{{asset('TEMPLATEBACK/assets/css/responsive.css')}}" rel="stylesheet" type="text/css"/>
+
         {% endblock %}
 
     </head>
@@ -203,6 +204,7 @@
                             </a>
                             <ul class="dropdown-menu profile animated fadeIn">
                                 <li class="last dropdown-item">
+
                                     <a href="{{ path('app_login') }}">
                                         <i class="fa fa-lock"></i>
                                         Logout
@@ -229,6 +231,7 @@
 
             <!-- SIDEBAR - START -->
             <div class="page-sidebar ">
+
 
                 <!-- MAIN MENU - START -->
                 <div class="page-sidebar-wrapper" id="main-menu-wrapper"> 
@@ -264,6 +267,7 @@
                                 <span class="title">Dashboard</span>
                             </a>
                         </li>
+
                          <li class=""> 
                             <a href="javascript:;">
                                 <i class="fa fa-user-md"></i>
@@ -273,6 +277,7 @@
 
                             <ul class="sub-menu" >
                                 <li>
+
                                     <a class="" href="/show/users" >All Users</a>
                                 </li>
                             </ul>
@@ -287,6 +292,7 @@
 
                             <ul class="sub-menu" >
                                 <li>
+
                                     <a class="" href="/show/workers" >All Workers</a>
                                 </li>
                              
@@ -304,6 +310,7 @@
                             </a>
                             <ul class="sub-menu" >
                                 <li>
+
                                     <a class="" href="{{ path('app_display') }}" >All Reservations</a>
                                 </li>
                                 <li>
@@ -343,6 +350,25 @@
                         <li class=""> 
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
+                                <span class="title">Animals</span>
+                                <span class="arrow "></span>
+                            </a>
+                            <ul class="sub-menu" >
+                                <li>
+                                    <a class="" href="{{ path('generateGraph') }}" >Statistics</a>
+                                </li>
+                                <li>
+                                    <a class="" href="{{ path('app_affichercategories') }}" >All Categories</a>
+                                </li>
+                                <li>
+                                    <a class="" href="{{ path('app_ajoutcateg') }}" >ADD Category</a>
+                                </li>
+                            </ul>
+                        </li>  
+
+                        <li class=""> 
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
                                 <span class="title">Products</span>
                                 <span class="arrow "></span>
                             </a>
@@ -369,8 +395,10 @@
 
                     <div class="block1">
                         <div class="data">
+
                             <span class='title'></span>
                             <span class='total'></span>
+
                         </div>
                         <div class="graph">
                             <span class="sidebar_orders">...</span>
@@ -379,6 +407,7 @@
 
                     <div class="block2">
                         <div class="data">
+
                             <span class='title'>&nbsp;</span>
                             <span class='total'></span>
                         </div>
@@ -392,6 +421,7 @@
 
             </div>
             <!--  SIDEBAR - END -->
+
             <section class="hero-section">
             {% block body %}
             {% endblock %}
