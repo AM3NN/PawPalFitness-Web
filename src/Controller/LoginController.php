@@ -1,6 +1,5 @@
 <?php
 
-// LoginController.php
 
 namespace App\Controller;
 

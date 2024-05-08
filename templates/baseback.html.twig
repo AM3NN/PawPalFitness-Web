@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html class=" ">
     <head>
-        <!-- 
-         * @Package: Ultra Admin - Responsive Theme
-         * @Subpackage: Bootstrap
-         * @Version: B4-1.3
-         * This file is part of Ultra Admin Theme.
-        -->
+      
         <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
         <meta charset="utf-8" />
         <title>{% block title %} PAWPAL Fitness Admin {% endblock %}</title>
@@ -328,22 +323,22 @@
                         <li class=""> 
                             <a href="javascript:;">
                                 <i class="fa fa-users"></i>
-                                <span class="title">Gyms</span>
+                                <span class="title">Salles et Abonnements</span>
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu" >
                                 <li>
-                                    <a class="" href="hos-patients.html" >All Gyms</a>
+                                    <a class="" href="{{ path('app_abonnement_index') }}" >Abonnements</a>
                                 </li>
                                 <li>
-                                    <a class="" href="hos-patient-add.html" >Add Gym</a>
+                                    <a class="" href="{{ path('app_salle_index') }}" >Salles</a>
                                 </li>
-                                <li>
-                                    <a class="" href="hos-patient-edit.html" >Edit Gym</a>
-                                </li>
-                                <li>
-                                    <a class="" href="hos-patient-profile.html" >Remove Gym</a>
-                                </li>
+                                {# <li>
+                                    <a class="" href="hos-patient-edit.html" >Edit Abonnements</a>
+                                </li> #}
+                                {# <li>
+                                    <a class="" href="hos-patient-profile.html" >Remove Abonnements</a>
+                                </li> #}
                             </ul>
                         </li>
 
