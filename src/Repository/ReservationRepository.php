@@ -6,14 +6,8 @@ use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<Reservation>
- *
- * @method Reservation|null find($id, $lockMode = null, $lockVersion = null)
- * @method Reservation|null findOneBy(array $criteria, array $orderBy = null)
- * @method Reservation[]    findAll()
- * @method Reservation[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
- */
+use Doctrine\ORM\Query\ResultSetMappingBuilder;
+
 class ReservationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -21,28 +15,46 @@ class ReservationRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservation::class);
     }
 
-    //    /**
-    //     * @return Reservation[] Returns an array of Reservation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('r.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    /**
+     * Search for reservations based on a query and attribute.
+     *
+     * @param string $query The search query.
+     * @param string $attribute The attribute to search by (e.g., 'date', 'places', 'pricing', 'status').
+     * @return Reservation[] Returns an array of Reservation objects.
+     */
+  // ReservationRepository.php
 
-    //    public function findOneBySomeField($value): ?Reservation
-    //    {
-    //        return $this->createQueryBuilder('r')
-    //            ->andWhere('r.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+  public function searchReservations(array $criteria): array
+  {
+      // Create a query builder
+      $qb = $this->createQueryBuilder('r');
+      
+      // Check and apply search criteria for date
+      if (!empty($criteria['date'])) {
+          $qb->andWhere('r.date = :date')
+             ->setParameter('date', $criteria['date']);
+      }
+      
+      // Check and apply search criteria for category
+      if (!empty($criteria['category'])) {
+          $qb->andWhere('r.category = :category')
+             ->setParameter('category', $criteria['category']);
+      }
+      
+      // Add more conditions based on your requirements
+      
+      // Execute the query and return the results
+      return $qb->getQuery()->getResult();
+  }
+  
+  public function getReservationCountByCategory(): array
+{
+    $qb = $this->createQueryBuilder('r')
+        ->select('r.category, COUNT(r) as count')
+        ->groupBy('r.category')
+        ->getQuery();
+    
+    return $qb->getResult();
+}
+
 }

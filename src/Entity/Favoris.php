@@ -20,6 +20,7 @@ class Favoris
     private Animal $ida;
 
     public function getIdf(): ?int
+
     {
         return $this->idf;
     }
@@ -49,3 +50,4 @@ class Favoris
     }
 
 }
+

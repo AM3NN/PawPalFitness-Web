@@ -4,60 +4,93 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * Travailleur
- *
- * @ORM\Table(name="travailleur", indexes={@ORM\Index(name="fk_personne_id", columns={"personne_id"})})
- * @ORM\Entity
- */
+use App\Repository\TravailleurRepository;
+
+#[ORM\Entity(repositoryClass: TravailleurRepository::class)]
 class Travailleur
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="diplome", type="string", length=200, nullable=true)
-     */
-    private $diplome;
+    #[ORM\Column(length: 255)]
+    private ?string $diplome = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="experience", type="string", length=200, nullable=true)
-     */
-    private $experience;
+    #[ORM\Column(length: 255)]
+    private ?string $experience = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="langue", type="string", length=200, nullable=true)
-     */
-    private $langue;
+    #[ORM\Column(length: 255)]
+    private ?string $langue = null;
 
-    /**
-     * @var string|null
-     *
-     * @ORM\Column(name="categorie", type="string", length=200, nullable=true)
-     */
-    private $categorie;
+    #[ORM\Column(length: 255)]
+    private ?string $categorie = null;
 
-    /**
-     * @var \Personne
-     *
-     * @ORM\ManyToOne(targetEntity="Personne")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="personne_id", referencedColumnName="id")
-     * })
-     */
-    private $personne;
+    #[ORM\ManyToOne(inversedBy: "travailleurs")]
+    private ?Personne $personne = null;
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
+    public function getDiplome(): ?string
+    {
+        return $this->diplome;
+    }
+
+    public function setDiplome(string $diplome): static
+    {
+        $this->diplome = $diplome;
+
+        return $this;
+    }
+
+    public function getExperience(): ?string
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(string $experience): static
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getLangue(): ?string
+    {
+        return $this->langue;
+    }
+
+    public function setLangue(string $langue): static
+    {
+        $this->langue = $langue;
+
+        return $this;
+    }
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): static
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
+    public function getPersonne(): ?Personne
+    {
+        return $this->personne;
+    }
+
+    public function setPersonne(?Personne $personne): static
+    {
+        $this->personne = $personne;
+
+        return $this;
+    }
 }

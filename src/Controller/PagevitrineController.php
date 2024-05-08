@@ -25,5 +25,11 @@ class PagevitrineController extends AbstractController
     {
         return $this->render('pagevitrine/ourteam.html.twig');
     }
+    #[Route('/planning', name: 'planning')]
+    public function planning(): Response
+    {
+        return $this->render('reservation/reservation.html.twig');
+    }
+    
 
 }

@@ -4,7 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnimalRepository;
+
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass:AnimalRepository::class)]
 class Animal
@@ -49,6 +51,7 @@ class Animal
     #[ORM\JoinColumn(name: "IDU", referencedColumnName: "id")]
     private Personne $idu;
 
+
     public function getIda(): ?int
     {
         return $this->ida;
@@ -74,6 +77,19 @@ class Animal
     public function setAge(int $age): static
     {
         $this->age = $age;
+
+        return $this;
+    }
+
+
+    public function getCategorie(): ?string
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(string $categorie): static
+    {
+        $this->categorie = $categorie;
 
         return $this;
     }
@@ -137,5 +153,7 @@ class Animal
 
         return $this;
     }
+
+}
 
 }
