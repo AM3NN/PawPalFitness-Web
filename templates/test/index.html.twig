@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+<!DOCTYPE html>
 
-{% block title %}Hello TestController!{% endblock %}
+<title>Hello TestController!</title>
 
 {% block body %}
 <style>
@@ -13,8 +13,8 @@
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code>C:/xampp/htdocs/PI/PawPalFitness/src/Controller/TestController.php</code></li>
-        <li>Your template at <code>C:/xampp/htdocs/PI/PawPalFitness/templates/test/index.html.twig</code></li>
+        <li>Your controller at <code><a href="{{ 'C:/Users/EYA/Desktop/Esprit/PI/gesProdSym/gestPawPal/gestionProdPp/src/Controller/TestController.php'|file_link(0) }}">src/Controller/TestController.php</a></code></li>
+        <li>Your template at <code><a href="{{ 'C:/Users/EYA/Desktop/Esprit/PI/gesProdSym/gestPawPal/gestionProdPp/templates/test/index.html.twig'|file_link(0) }}">templates/test/index.html.twig</a></code></li>
     </ul>
 </div>
 {% endblock %}

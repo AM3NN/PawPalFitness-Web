@@ -78,4 +78,4 @@ private function convertQrCodeResultToString(PngResult $qrCodeResult): string
     // Adjust this logic based on how you want to represent the QR code data
     return 'data:image/png;base64,' . base64_encode($qrCodeResult->getString());
 }
-}
+

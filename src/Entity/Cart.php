@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CartRepository;
@@ -52,15 +53,14 @@ class Cart
 
     public function setPlaces(int $places): static
     {
-        $this->places = $places;
-
-        return $this;
+        return $this->id;
     }
 
     public function getQuantity(): ?int
     {
         return $this->quantity;
     }
+
 
     public function setQuantity(int $quantity): static
     {
@@ -69,15 +69,18 @@ class Cart
         return $this;
     }
 
+
     public function getTimestamp(): ?DateTime
     {
-        return $this->timestamp;
+        return $this->productid;
     }
 
     public function setTimestamp(DateTime $timestamp): static
     {
-        $this->timestamp = $timestamp;
+        $this->productid = $productid;
 
         return $this;
     }
+
+
 }
