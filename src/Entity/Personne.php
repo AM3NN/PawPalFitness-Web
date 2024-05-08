@@ -1,10 +1,13 @@
 <?php
 
 namespace App\Entity;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\PersonneRepository;
+use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
+
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
 class Personne 
 {
@@ -13,10 +16,14 @@ class Personne
     #[ORM\Column(name: "id", type: "integer")]
     private ?int $id = null;
 
+    #[ORM\Column(type:"integer")]
+    private $failedLoginAttempts = 0;
+
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Nom est obligatoire")]
     private ?string $nom = null;
-
+    #[ORM\Column(type: "boolean")]
+    private bool $isBanned = false;
     #[ORM\Column(length: 255)]
     #[Assert\NotBlank(message: "Prénom est obligatoire")]
     private ?string $prenom = null;
@@ -46,7 +53,7 @@ class Personne
     
     #[ORM\ManyToOne(targetEntity: Role::class)]
     #[ORM\JoinColumn(name: "role_id", referencedColumnName: "role_id")]
-    private ?Role $role = null; // Add the ManyToOne relationship with Role
+    private ?Role $role = null; 
 
     public function getId(): ?int
     {
@@ -63,7 +70,30 @@ class Personne
         $this->nom = $nom;
         return $this;
     }
+    public function getFailedLoginAttempts(): int
+    {
+        return $this->failedLoginAttempts;
+    }
 
+    public function incrementFailedLoginAttempts(): void
+    {
+        $this->failedLoginAttempts++;
+    }
+
+    public function resetFailedLoginAttempts(): void
+    {
+        $this->failedLoginAttempts = 0;
+    }
+    public function getIsBanned(): bool
+    {
+        return $this->isBanned;
+    }
+    
+    public function setIsBanned(bool $isBanned): self
+    {
+        $this->isBanned = $isBanned;
+        return $this;
+    }
     public function getPrenom(): ?string
     {
         return $this->prenom;
@@ -74,12 +104,16 @@ class Personne
         $this->prenom = $prenom;
         return $this;
     }
-
+   
     public function getRegion(): ?string
     {
         return $this->region;
     }
-
+    public function checkPassword(string $plainPassword): bool
+    {
+        // Hash the plain password using the same algorithm and compare it with the stored hashed password
+        return hash('sha256', $plainPassword) === $this->password;
+    }
     public function setRegion(string $region): self
     {
         $this->region = $region;

@@ -2,45 +2,56 @@
 
 namespace App\Entity;
 
+
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CartRepository;
+use DateTime;
 
-
-
-/**
- * Cart
- *
- * @ORM\Table(name="cart", indexes={@ORM\Index(name="nom", columns={"productid"})})
- * @ORM\Entity
- */
+#[ORM\Entity(repositoryClass: CartRepository::class)]
 class Cart
 {
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="id", type="integer", nullable=false)
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
-     */
-    private $id;
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $cartId = null;
 
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="quantity", type="integer", nullable=false)
-     */
-    private $quantity;
+    #[ORM\ManyToOne(targetEntity: Reservation::class)]
+    #[ORM\JoinColumn(name: 'reservation_id', referencedColumnName: 'id')]
+    private ?Reservation $reservation;
 
-    /**
-     * @var \Products
-     *
-     * @ORM\ManyToOne(targetEntity="Products")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="id", referencedColumnName="nom")
-     * })
-     */
-    private $productid;
+    #[ORM\Column]
+    private ?int $places;
 
-    public function getId(): ?int
+    #[ORM\Column]
+    private ?int $quantity;
+
+    #[ORM\Column(type: 'datetime', options: ["default" => "CURRENT_TIMESTAMP"])]
+    private ?DateTime $timestamp;
+
+    public function getCartId(): ?int
+    {
+        return $this->cartId;
+    }
+
+    public function getReservation(): ?Reservation
+    {
+        return $this->reservation;
+    }
+
+    public function setReservation(?Reservation $reservation): static
+    {
+        $this->reservation = $reservation;
+
+        return $this;
+    }
+
+    public function getPlaces(): ?int
+    {
+        return $this->places;
+    }
+
+    public function setPlaces(int $places): static
     {
         return $this->id;
     }
@@ -50,19 +61,21 @@ class Cart
         return $this->quantity;
     }
 
-    public function setQuantity(int $quantity): self
+
+    public function setQuantity(int $quantity): static
     {
         $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getProductid(): ?Products
+
+    public function getTimestamp(): ?DateTime
     {
         return $this->productid;
     }
 
-    public function setProductid(?Products $productid): self
+    public function setTimestamp(DateTime $timestamp): static
     {
         $this->productid = $productid;
 

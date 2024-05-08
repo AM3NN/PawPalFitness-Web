@@ -30,31 +30,26 @@ class TravailleurController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // Get the form data
             $formData = $form->getData();
             
-            // Get the Personne object from the form data
             $personneData = $formData->getPersonne();
             
-            // Check if the Personne object is null
             if (!$personneData) {
-                // Create a new Personne object and set it on Travailleur
                 $personneData = new Personne();
                 $formData->setPersonne($personneData);
             }
             
-            // Set the default role for Travailleur
             $defaultRoleId = 3;
             $role = $this->entityManager->getRepository(Role::class)->find($defaultRoleId);
         
             if (!$role) {
                 throw $this->createNotFoundException('Default role not found.');
             }
+
         
-            // Set the role for the Personne associated with Travailleur
             $personneData->setRole($role);
             
-            // Set the Personne object with form data
+            
             $personneData->setNom($form->get('personne')->get('nom')->getData());
             $personneData->setPrenom($form->get('personne')->get('prenom')->getData());
             $personneData->setRegion($form->get('personne')->get('region')->getData());
@@ -62,7 +57,6 @@ class TravailleurController extends AbstractController
             $personneData->setPassword($form->get('personne')->get('password')->getData());
             $personneData->setAge($form->get('personne')->get('age')->getData());
         
-            // Persist the Personne entity
             $this->entityManager->persist($personneData);
         
             $this->entityManager->persist($formData);
