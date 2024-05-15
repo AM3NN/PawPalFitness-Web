@@ -5,6 +5,9 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\AnimalRepository;
 
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 #[ORM\Entity(repositoryClass:AnimalRepository::class)]
 class Animal
 {
@@ -14,22 +17,40 @@ class Animal
     private ?int $ida=null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Vous devez mettre le nom de votre animal!!!")]
     private ?string $nom=null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Vous devez mettre l'age!!!")]
+    #[Assert\Type(type: "integer", message: "Âge doit être un nombre entier")]
+    #[Assert\Range(min: 1, minMessage: "Âge doit être supérieur à 0")]
     private ?int $age=null;
 
-    #[ORM\Column(length: 10)]
-    private ?string $categorie=null;
-
     #[ORM\Column(length: 100)]
+    #[Assert\NotBlank(message: "Vous devez mettre le type!!!")]
     private ?string $type=null;
 
     #[ORM\Column(length: 500)]
+    #[Assert\NotBlank(message: "Vous devez mettre les details!!!")]
     private ?string $details=null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: "Vous devez mettre le poids!!!")]
+    #[Assert\Type(type: "float", message: "poids doit être un nombre")]
+    #[Assert\Range(
+        min: 0.1,
+        minMessage: "Le poids doit être supérieur à 0",
+    )]
     private ?float $poids=null;
+
+    #[ORM\ManyToOne(targetEntity: Categorie::class)]
+    #[ORM\JoinColumn(name: "IDC", referencedColumnName: "idc")]
+    private Categorie $idc;
+
+    #[ORM\ManyToOne(targetEntity: Personne::class)]
+    #[ORM\JoinColumn(name: "IDU", referencedColumnName: "id")]
+    private Personne $idu;
+
 
     public function getIda(): ?int
     {
@@ -59,6 +80,7 @@ class Animal
 
         return $this;
     }
+
 
     public function getCategorie(): ?string
     {
@@ -108,5 +130,30 @@ class Animal
         return $this;
     }
 
+    public function getIdc(): ?Categorie
+    {
+        return $this->idc;
+    }
+
+    public function setIdc(?Categorie $idc): static
+    {
+        $this->idc = $idc;
+
+        return $this;
+    }
+
+    public function getIdu(): ?Personne
+    {
+        return $this->idu;
+    }
+
+    public function setIdu(?Personne $idu): static
+    {
+        $this->idu = $idu;
+
+        return $this;
+    }
 
 }
+
+

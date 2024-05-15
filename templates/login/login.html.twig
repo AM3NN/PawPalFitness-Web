@@ -8,7 +8,7 @@
             <div class="single-hero-item set-bg" data-setbg="{{ asset('img/mainimg.png') }}">
                 <div class="signup-form">
                     <h2>Please sign in</h2>
-                    <form method="post">
+                    <form method="post" novalidate> <!-- Add novalidate attribute here -->
                         {% if app.session.flashbag.has('error') %}
                             {% set errorMessages = app.session.flashbag.get('error') %}
                             {% if errorMessages is iterable %}
@@ -33,22 +33,47 @@
 
                         <div class="form-group">
                             <label for="inputPassword">Password</label>
-                            <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                            <div class="input-group">
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                                <div class="input-group-append">
+                                    <button type="button" id="showPasswordButton" class="btn btn-outline-secondary">
+                                        <i id="eyeIcon" class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
                         </div>
+
+                      
+
+                         <div class="g-recaptcha" data-sitekey="6LcO9sQpAAAAAHLbs9IymUjS-atzqL89D3amurID"></div>
 
                         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-                        <div class="form-group form-check">
-                            <input type="checkbox" name="_remember_me" class="form-check-input" id="rememberMe">
-                            <label class="form-check-label" for="rememberMe">Remember me</label>
-                        </div>
-
                         <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
                     </form>
-                    <!-- Link to sign up -->
-                    <p>Don't have an account? <a href="{{ path('app_signup') }}">Sign up here</a></p>
+                  <p>
+   <a href="{{ path('app_signupp') }}">Sign up here</a>
+    &nbsp;&nbsp;&nbsp;
+    <a href="{{ path('app_forgot_password') }}">Forgot Password?</a>
+</p>
+                      
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        document.getElementById("showPasswordButton").addEventListener("click", function() {
+            var passwordField = document.getElementById("inputPassword");
+            var eyeIcon = document.getElementById("eyeIcon");
+
+            if (passwordField.type === "password") {
+                passwordField.type = "text";
+                eyeIcon.className = "fa fa-eye-slash";
+            } else {
+                passwordField.type = "password";
+                eyeIcon.className = "fa fa-eye";
+            }
+        });
+    </script>
 {% endblock %}

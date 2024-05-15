@@ -37,7 +37,8 @@ body {
 	height: 100%;
 	font-family: "Nunito Sans", sans-serif;
 	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
+	/*font-smoothing: antialiased;*/
+
 }
 
 h1,
@@ -240,6 +241,7 @@ ol {
 	position: relative;
 	z-index: 1;
 	border-radius: 4px;
+
 }
 
 .site-btn:after {

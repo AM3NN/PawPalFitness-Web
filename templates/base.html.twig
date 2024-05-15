@@ -39,6 +39,88 @@
 <body>
   
 
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+<style>
+        /* Chatbot icon styles */
+        #chatbot-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Chat window styles */
+        #chat-window {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            height: 400px;
+            background-color: white;
+            border: 1px solid gray;
+            display: none; /* Initially hidden */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            z-index: 1000; /* Ensure the chat window appears above other elements */
+        }
+
+        /* Chat window header */
+        #chat-header {
+            background-color: #f1f1f1;
+            padding: 10px;
+            border-bottom: 1px solid gray;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* Chat content styles */
+        #chat-content {
+            height: 300px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+
+        /* Chat input styles */
+        #chat-input {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+        }
+
+        /* Input field */
+        #chat-input input {
+            flex-grow: 1;
+            padding: 5px;
+            border: 1px solid gray;
+            border-radius: 5px;
+        }
+
+        /* Send button */
+        #chat-input button {
+            padding: 5px 10px;
+            margin-left: 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
     <!-- Header Section Begin -->
     <header class="header-section header-normal">
         <div class="container-fluid">
@@ -58,14 +140,17 @@
                 <div class="nav-menu">
                     <nav class="mainmenu mobile-menu">
                         <ul>
-                            <li><a href="./index.html">Home</a></li>
-                            <li><a href="./about-us.html">About us</a></li>
-                            <li><a href="./schedule.html">Schedule</a></li>
-                            <li><a href="./gallery.html">Gallery</a></li>
-                            <li class="active"><a href="./blog.html">Blog</a>
+
+                            <li><a href="{{ path('app_pagevitrine') }}">Home</a></li>
+                            <li><a href="">Gyms</a></li>
+                            <li><a href="">Trainers</a></li>
+                            <li><a href="{{ path('app_afficher') }}">Animals</a></li>
+                            <li><a href="">Products</a></li>
+                            <li><a href="{{ path('app_aboutus') }}">About us</a>
                                 <ul class="dropdown">
-                                    <li><a href="./about-us.html">About Us</a></li>
-                                    <li><a href="./blog-single.html">Blog Details</a></li>
+                                    <li><a href="{{ path('app_aboutus') }}">About Us</a></li>
+                                    <li><a href="{{ path('app_team') }}">Our Team</a></li>
+
                                 </ul>
                             </li>
                             <li><a href="{{ path('cart') }}">Cart</a></li>

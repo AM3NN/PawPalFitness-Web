@@ -21,28 +21,35 @@ class AnimalRepository extends ServiceEntityRepository
         parent::__construct($registry, Animal::class);
     }
 
-    //    /**
-    //     * @return Animal[] Returns an array of Animal objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('a.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function countAnimalsByCategoryId($categoryId)
+    {
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a.ida)')
+            ->andWhere('a.idc = :categoryId')
+            ->setParameter('categoryId', $categoryId)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 
-    //    public function findOneBySomeField($value): ?Animal
-    //    {
-    //        return $this->createQueryBuilder('a')
-    //            ->andWhere('a.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function countAnimalsByCategories()
+{
+    return $this->createQueryBuilder('a')
+        ->select('COUNT(a.ida) as count', 'c.nomc as categoryName')
+        ->leftJoin('a.idc', 'c')
+        ->groupBy('a.idc')
+        ->getQuery()
+        ->getResult();
+}
+
+
+    public function searchByName(string $searchTerm): ?Animal
+    {
+    return $this->createQueryBuilder('a')
+        ->andWhere('a.nom = :searchTerm')
+        ->setParameter('searchTerm', $searchTerm)
+        ->getQuery()
+        ->getOneOrNullResult();
+    }
+
+
 }
