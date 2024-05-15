@@ -257,7 +257,7 @@
 
 
                         <li class="open"> 
-                            <a href="/dashboard">
+                            <a href="{{ path('app_dashboard') }}">
                                 <i class="fa fa-dashboard"></i>
                                 <span class="title">Dashboard</span>
                             </a>
@@ -273,7 +273,7 @@
                             <ul class="sub-menu" >
                                 <li>
 
-                                    <a class="" href="/show/users" >All Users</a>
+                                    <a class="" href="{{ path('app_show_users') }}" >All Users</a>
                                 </li>
                             </ul>
                             
@@ -288,7 +288,7 @@
                             <ul class="sub-menu" >
                                 <li>
 
-                                    <a class="" href="/show/workers" >All Workers</a>
+                                    <a class="" href="{{ path('app_show_workers') }}" >All Workers</a>
                                 </li>
                              
                             </ul>
@@ -368,14 +368,11 @@
                                 <span class="arrow "></span>
                             </a>
                             <ul class="sub-menu" >
-                                <li>
-                                    <a class="" href="hos-patient-add.html" >Add Product</a>
+                         <li>
+                                    <a class="" href="{{ path('app_products_back_index') }}" >Products</a>
                                 </li>
                                 <li>
-                                    <a class="" href="hos-patient-edit.html" >Edit Product</a>
-                                </li>
-                                <li>
-                                    <a class="" href="hos-patient-profile.html" >Remove Product</a>
+                                    <a class="" href="{{ path('commande_index') }}" >Commande</a>
                                 </li>
                             </ul>
                         </li>  
@@ -383,11 +380,7 @@
 
                 </div>
                 <!-- MAIN MENU - END -->
-
-
-
                 <div class="project-info">
-
                     <div class="block1">
                         <div class="data">
 
