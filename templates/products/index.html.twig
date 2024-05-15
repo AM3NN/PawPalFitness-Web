@@ -18,8 +18,8 @@
                 <p>{{ product.price }} TND</p>
                 <img src="{{ asset('uploads/') ~ product.image }}" alt="Image de {{ product.title }}">
                 <hr>
-                <a href="{{path('cart_add', {id: product.id})}}" class="btn btn-success">
-                    <i class="bi bi-cart-plus"></i> Ajouter
+                <a href="{{path('cart1_add', {id: product.id})}}" class="btn btn-success">
+                    <i class="bi bi-cart1-plus"></i> Ajouter
                 </a>
             </div>
         {% endfor %}
